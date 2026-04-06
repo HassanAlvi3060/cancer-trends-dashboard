@@ -139,7 +139,7 @@ body.dark .takeaway-card{background:rgba(255,255,255,0.05);border-color:rgba(255
 .takeaway-eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:var(--copper);margin-bottom:10px;background:rgba(243,235,224,0.25);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.2);border-radius:999px;padding:5px 14px}
 body.dark .takeaway-eyebrow{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08)}
 .takeaway-headline{font-family:'Outfit',system-ui,sans-serif;font-size:22px;font-weight:700;line-height:1.3;letter-spacing:-0.01em;margin-bottom:10px}
-.takeaway-body{font-size:15px;line-height:1.65;color:var(--muted)}
+.takeaway-body{font-size:15px;line-height:1.65;color:var(--muted);text-align:justify}
 
 .scroll-top{position:fixed;bottom:28px;right:28px;width:42px;height:42px;border-radius:50%;background:rgba(243,235,224,0.3);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.25);color:var(--muted);font-size:18px;cursor:pointer;z-index:150;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:all 0.3s var(--ease);pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,0.06)}
 .scroll-top.visible{opacity:1;transform:translateY(0);pointer-events:auto}
@@ -397,7 +397,7 @@ function renderViz1(measure,animate){
   const ROW=68,ML=220,MR=180,MT=96,MB=64,GAP=28,W=1160,H=MT+3*ROW+GAP+3*ROW+MB;
   const rows=barData.map(d=>({...d,pct:((d.v2017-d.v1997)/d.v1997)*100}));
   const maxPct=Math.max(...rows.map(d=>Math.abs(d.pct)));
-  const domHi=measure==='Incidence'?50:Math.ceil(maxPct/25)*25+10;
+  const domHi=measure==='Incidence'?50:115;
   const xSc=d3.scaleLinear().domain([-domHi,domHi]).range([ML,W-MR]),zero=xSc(0);
   const svg=d3.select(el).append('svg').attr('width',W).attr('height',H).style('background',C.BG).style('font-family',FONT);
   svg.append('rect').attr('width',W).attr('height',H).attr('fill',C.BG);
@@ -407,7 +407,7 @@ function renderViz1(measure,animate){
   svg.append('rect').attr('x',24).attr('y',wY).attr('width',W-48).attr('height',bH).attr('rx',12).attr('fill',C.RED_S).attr('opacity',0.55);
   svg.append('rect').attr('x',24).attr('y',iY).attr('width',W-48).attr('height',bH).attr('rx',12).attr('fill',C.GRN_S).attr('opacity',0.7);
   svg.append('line').attr('x1',zero).attr('x2',zero).attr('y1',MT-6).attr('y2',H-MB+8).attr('stroke',C.AXIS).attr('stroke-width',2);
-  const ticks=[];for(let v=-domHi;v<=domHi;v+=25)ticks.push(v);
+  const ticks=measure==='Incidence'?[-50,-25,0,25,50]:[-100,-75,-50,-25,0,25,50,75,100];
   ticks.forEach(v=>{
     svg.append('line').attr('x1',xSc(v)).attr('x2',xSc(v)).attr('y1',MT-6).attr('y2',H-MB).attr('stroke',v===0?'none':C.GRID);
     svg.append('text').attr('x',xSc(v)).attr('y',H-MB+28).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11.5).text(v===0?'0%':`${v>0?'+':''}${v}%`)
@@ -461,15 +461,15 @@ function renderBarDetail(country,measure){
   const fInc=barTimeSeries[`${country}|F|Incidence`]||[];
   const hasMort=mMort.length>0||fMort.length>0;
   const hasInc=mInc.length>0||fInc.length>0;
-  let detailMeasure=measure;
+  let detailMeasure=hasInc?'Incidence':hasMort?'Mortality':measure;
   function buildToggle(){
-    if(hasMort&&hasInc)return `<div class="sex-toggle" id="barDetailToggle" style="margin:8px 0 16px"><button class="${detailMeasure==='Mortality'?'active':''}" data-m="Mortality">Mortality</button><button class="${detailMeasure==='Incidence'?'active':''}" data-m="Incidence">Incidence</button></div>`;
-    return '';
+    return `<div class="sex-toggle" id="barDetailToggle" style="margin:8px 0 16px"><button class="${detailMeasure==='Incidence'?'active':''}" data-m="Incidence"${!hasInc?' style="opacity:0.35;pointer-events:none"':''}>Incidence</button><button class="${detailMeasure==='Mortality'?'active':''}" data-m="Mortality"${!hasMort?' style="opacity:0.35;pointer-events:none"':''}>Mortality</button></div>`;
   }
-  body.innerHTML=`<div style="font-family:'Outfit',system-ui,sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.01em;margin-bottom:10px">${country}</div><div style="font-size:14px;line-height:1.55;color:var(--muted);margin-bottom:18px">Colorectal cancer ${measure.toLowerCase()} from 1997 to 2017, male and female.</div>${buildToggle()}<div id="barDetailChart"></div>`;
+  function descText(){return `Colorectal cancer ${detailMeasure.toLowerCase()} from 1997 to 2017, male and female.`}
+  body.innerHTML=`<div style="font-family:'Outfit',system-ui,sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.01em;margin-bottom:10px">${country}</div><div id="barDetailDesc" style="font-size:14px;line-height:1.55;color:var(--muted);margin-bottom:18px">${descText()}</div>${buildToggle()}<div id="barDetailChart"></div>`;
   const overlay=document.getElementById('sparkOverlay');overlay.style.display='flex';overlay.style.opacity='0';requestAnimationFrame(()=>{overlay.style.opacity='1'});
   const tog=document.getElementById('barDetailToggle');
-  if(tog)tog.addEventListener('click',ev=>{if(ev.target.tagName==='BUTTON'){detailMeasure=ev.target.dataset.m;tog.querySelectorAll('button').forEach(b=>b.classList.remove('active'));ev.target.classList.add('active');drawBarDetailChart(country,detailMeasure)}});
+  if(tog)tog.addEventListener('click',ev=>{if(ev.target.tagName==='BUTTON'&&ev.target.style.pointerEvents!=='none'){detailMeasure=ev.target.dataset.m;tog.querySelectorAll('button').forEach(b=>b.classList.remove('active'));ev.target.classList.add('active');const desc=document.getElementById('barDetailDesc');if(desc)desc.textContent=descText();drawBarDetailChart(country,detailMeasure)}});
   drawBarDetailChart(country,detailMeasure);
 }
 function drawBarDetailChart(country,measure){
