@@ -155,7 +155,7 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
 <body>
 <div class="g-tooltip" id="gTip"></div>
 <div class="progress-bar" id="progressBar"></div>
-<nav><div class="logo">The State of Cancer</div><div class="nav-links"><a href="#hero">Overview</a><a href="#mortality">Mortality</a><a href="#compare">CAN vs AUS</a><a href="#heatmap">Incidence</a><a href="#sparklines">Landscape</a><a href="#sexgap">Sex Gap</a></div><button class="theme-toggle" id="themeToggle" title="Toggle dark mode">☀️</button></nav>
+<nav><div class="logo">The State of Cancer</div><div class="nav-links"><a href="#hero">Overview</a><a href="#mortality">Mortality</a><a href="#heatmap">Incidence</a><a href="#compare">CAN vs AUS</a><a href="#sparklines">Landscape</a><a href="#sexgap">Sex Gap</a></div><button class="theme-toggle" id="themeToggle" title="Toggle dark mode">☀️</button></nav>
 
 <div id="hero" class="section">
   <div class="section-title">The State of Cancer</div>
@@ -174,28 +174,28 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
   <div class="sex-toggle" id="measureToggle"><button class="active" data-measure="Mortality">Mortality</button><button data-measure="Incidence">Incidence</button></div>
   <div class="chart-wrap" id="viz1"></div>
 </div>
-<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>The gap between the best and worst-performing countries was enormous.</strong> While countries such as Australia, Luxembourg, and Czechia cut colorectal cancer mortality substantially, others such as Nicaragua, Paraguay, and the Philippines moved sharply in the opposite direction.</div></div></div>
-<div class="section-divider"></div>
-
-<div id="compare" class="section">
-  <div class="section-eyebrow">02 · Head to Head</div>
-  <div class="section-title">The Screening Divide</div>
-  <p class="section-subtitle">Canada and Australia began from similar colorectal cancer burdens, but the data reveal their paths separating over time as screening was introduced earlier in Australia. Use the toggle to compare how this divergence unfolded for males and females.</p>
-  <div class="sex-toggle" id="sexToggle"><button class="active" data-sex="M">Male</button><button data-sex="F">Female</button></div>
-  <div class="chart-wrap" id="viz2"></div>
-</div>
-<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Canada and Australia did not stay on the same path.</strong> After Australia introduced organized screening earlier, its colorectal cancer mortality fell further, suggesting that screening timing may have mattered alongside treatment advances.</div></div></div>
-
+<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>The gap between the best and worst-performing countries was enormous.</strong> While countries such as Australia, Israel, and Czechia cut colorectal cancer mortality substantially, others such as Nicaragua, Paraguay, and the Philippines moved sharply in the opposite direction.</div></div></div>
 <div class="section-divider"></div>
 
 <div id="heatmap" class="section">
-  <div class="section-eyebrow">03 · Global Incidence</div>
+  <div class="section-eyebrow">02 · Global Incidence</div>
   <div class="section-title">Diverging Trajectories</div>
   <p class="section-subtitle">Colorectal cancer incidence did not follow a single global path. These countries capture the full spread in the data, from sustained decline to sharp increase, with color showing change relative to each country’s own 1997 starting point.</p>
   <div class="chart-wrap" id="viz4"></div>
 </div>
 <div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Countries were not all moving in the same direction.</strong> Relative to their own 1997 starting point, some saw colorectal cancer incidence fall over time, while others experienced steady increases that widened the global spread.</div></div></div>
 
+
+<div class="section-divider"></div><div class="section-divider"></div>
+
+<div id="compare" class="section">
+  <div class="section-eyebrow">03 · Head to Head</div>
+  <div class="section-title">The Screening Divide</div>
+  <p class="section-subtitle">Canada and Australia began from similar colorectal cancer burdens, but the data reveal their paths separating over time as screening was introduced earlier in Australia. Use the toggle to compare how this divergence unfolded for males and females.</p>
+  <div class="sex-toggle" id="sexToggle"><button class="active" data-sex="M">Male</button><button data-sex="F">Female</button></div>
+  <div class="chart-wrap" id="viz2"></div>
+</div>
+<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Canada and Australia did not stay on the same path.</strong> After Australia introduced organized screening earlier, its colorectal cancer mortality fell further, suggesting that screening timing may have mattered alongside treatment advances.</div></div></div>
 
 <div class="section-divider"></div>
 
@@ -540,7 +540,7 @@ function drawDetailChart(site,sex,ctx){const chartEl=document.getElementById('de
 
 // VIZ 4
 (function(){const W=1240,cellW=36,cellH=34,topPad=120,bottomPad=80,leftLabelW=136,changeW=66,gridX=leftLabelW+changeW+30,H=topPad+heatmapFocus.length*cellH+bottomPad,TEAL=C.TEAL,RUST=C.RUST,MID=C.MID;const svg=d3.select('#viz4').append('svg').attr('width',W).attr('height',H).style('background',C.BG).style('font-family',FONT);svg.append('rect').attr('width',W).attr('height',H).attr('fill',C.BG);svg.append('text').attr('x',gridX+(21*cellW)/2).attr('y',30).attr('text-anchor','middle').attr('fill',C.FG).attr('font-size',17).attr('font-weight',700).attr('font-family',FONT2).text('Colorectal Cancer Incidence Trajectories Across 12 Countries');
-  svg.append('text').attr('x',gridX+(21*cellW)/2).attr('y',50).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Each country is compared to where it started in 1997');
+  svg.append('text').attr('x',gridX+(21*cellW)/2).attr('y',50).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Each country is compared to where it started in 1997, not to other countries');
   svg.append('text').attr('x',leftLabelW).attr('y',topPad-14).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',12).text('Country');svg.append('text').attr('x',leftLabelW+changeW).attr('y',topPad-14).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',12).text('% Change');[1997,2002,2007,2012,2017].forEach(yr=>{svg.append('text').attr('x',gridX+(yr-1997)*cellW+cellW/2).attr('y',topPad-14).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});const colorScale=d3.scaleDiverging().domain([-60,0,100]).interpolator(t=>t<0.5?d3.interpolateRgb(TEAL,MID)(t*2):d3.interpolateRgb(MID,RUST)((t-0.5)*2));heatmapFocus.forEach((d,i)=>{const pct=d[1],vals=d[2],yp=topPad+i*cellH,base=vals[0];svg.append('text').attr('x',leftLabelW).attr('y',yp+cellH/2+4).attr('text-anchor','end').attr('fill',C.FG).attr('font-size',12.5).attr('data-country',d[0]).attr('class','hl-country').text(d[0]);svg.append('text').attr('x',leftLabelW+changeW).attr('y',yp+cellH/2+4).attr('text-anchor','end').attr('fill',pct<0?TEAL:RUST).attr('font-size',11.5).attr('font-weight',700).text(`${pct>0?'+':''}${Math.round(pct)}%`);vals.forEach((v,j)=>{const chg=((v-base)/base)*100;svg.append('rect').attr('x',gridX+j*cellW).attr('y',yp+1).attr('width',cellW-1.5).attr('height',cellH-2).attr('rx',3).attr('fill',colorScale(chg)).attr('data-country',d[0]).attr('class','hl-country').style('cursor','pointer').on('mousemove',function(event){showTip(`<strong>${d[0]}</strong> · ${1997+j}<br>Incidence: ${v.toFixed(1)} per 100k<br>vs 1997: <span style="color:${chg<0?TEAL:RUST}">${chg>0?'+':''}${chg.toFixed(0)}%</span>`,event)}).on('mouseleave',hideTip)})});const divI=heatmapFocus.findIndex(d=>d[1]>0);if(divI>0)svg.append('line').attr('x1',leftLabelW+8).attr('x2',gridX+21*cellW).attr('y1',topPad+divI*cellH).attr('y2',topPad+divI*cellH).attr('stroke',C.DIV).attr('stroke-width',1.4).attr('stroke-dasharray','4,4');const legW=400,legH=12,legX=gridX+(21*cellW-legW)/2,legY=H-16,grad=svg.append('defs').append('linearGradient').attr('id','heatLeg');grad.append('stop').attr('offset','0%').attr('stop-color',TEAL);grad.append('stop').attr('offset','50%').attr('stop-color',MID);grad.append('stop').attr('offset','100%').attr('stop-color',RUST);svg.append('rect').attr('x',legX).attr('y',legY).attr('width',legW).attr('height',legH).attr('rx',4).attr('fill','url(#heatLeg)');svg.append('text').attr('x',legX+legW/2).attr('y',legY-8).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text('Relative to 1997 Baseline');
   svg.append('text').attr('x',legX-4).attr('y',legY+8).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text('Lower Incidence');svg.append('text').attr('x',legX+legW+4).attr('y',legY+8).attr('fill',C.SUB).attr('font-size',11).text('Higher Incidence')})();
 
