@@ -170,8 +170,9 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
 <div id="mortality" class="section">
   <div class="section-eyebrow">01 · Global Comparison</div>
   <div class="section-title">Who Improved and Who Worsened</div>
-  <p class="section-subtitle">From 1997 to 2017, some countries saw colorectal cancer outcomes improve sharply while others moved in the opposite direction. Use the toggle to switch between mortality and incidence, and click any bar to explore the full trend over time.</p>
+  <p class="section-subtitle">From 1997 to 2017, some countries saw colorectal cancer outcomes improve sharply while others moved in the opposite direction. Use the toggle to switch between mortality and incidence.</p>
   <div class="sex-toggle" id="measureToggle"><button class="active" data-measure="Incidence">Incidence</button><button data-measure="Mortality">Mortality</button></div>
+  <div class="spark-hint">Click any bar to explore the full trend over time.</div>
   <div class="chart-wrap" id="viz1"></div>
 </div>
 <div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>The gap between the best and worst-performing countries was enormous.</strong> While countries such as Australia, Luxembourg, and Czechia cut colorectal cancer mortality substantially, others such as Nicaragua, Paraguay, and the Philippines moved sharply in the opposite direction.</div></div></div>
@@ -426,8 +427,8 @@ function renderViz1(measure,animate){
     const valLabel=svg.append('text').attr('x',zero).attr('y',cy+6).attr('text-anchor',improved?'start':'end').attr('fill',C.BG).attr('font-size',16).attr('font-weight',700).attr('opacity',0).text(`${d.pct>0?'+':''}${d.pct.toFixed(0)}%`);
     barEls.push({bar,valLabel,finalX,barW,improved,lx,i});
   });
-  svg.append('text').attr('x',W/2).attr('y',H-22).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('% Change in Colorectal Cancer '+measureLabel+' (Age-Standardized Rate)');
-  svg.append('text').attr('x',W/2).attr('y',H-6).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text('1997 \u2192 2017');
+  svg.append('text').attr('x',W/2).attr('y',H-16).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text('% Change in Colorectal Cancer '+measureLabel+' (ASR)');
+  svg.append('text').attr('x',W/2).attr('y',H-2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',10).text('1997 \u2192 2017');
   if(animate){
     barEls.forEach(({bar,valLabel,finalX,barW,improved,lx,i})=>{
       bar.attr('x',improved?finalX:zero).attr('width',barW).attr('opacity',0);
@@ -532,7 +533,7 @@ function renderViz2(sex,animate){
   d3.range(1997,2018,3).concat([2017]).forEach(yr=>{svg.append('text').attr('x',x(yr)).attr('y',H-m.b+24).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});
   svg.append('text').attr('x',24).attr('y',(m.t+H-m.b)/2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).attr('transform',`rotate(-90,24,${(m.t+H-m.b)/2})`).text('Age-Standardized Rate per 100,000');
   svg.append('text').attr('x',(m.l+(W-m.r))/2).attr('y',H-m.b+38).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');
-  const milestones=[{yr:2000,label:'New chemo regimen'},{yr:2004,label:'Targeted therapy'},{yr:2006,label:'AUS national screening'},{yr:2008,label:'Ontario screening'}];
+  const milestones=[{yr:2000,label:'FOLFOX'},{yr:2004,label:'Bevacizumab'},{yr:2006,label:'AUS Screening'},{yr:2008,label:'ON Screening'}];
   milestones.forEach(ms=>{
     svg.append('line').attr('x1',x(ms.yr)).attr('x2',x(ms.yr)).attr('y1',m.t).attr('y2',H-m.b).attr('stroke',C.GOLD).attr('stroke-width',1.1).attr('stroke-dasharray','4,4').attr('opacity',0.7);
     svg.append('text').attr('x',x(ms.yr)+3).attr('y',m.t+12).attr('fill',C.GOLD).attr('font-size',9.5).attr('font-weight',600).text(ms.label);
