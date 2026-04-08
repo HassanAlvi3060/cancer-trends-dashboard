@@ -202,7 +202,7 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
 <div id="sparklines" class="section">
   <div class="section-eyebrow">04 · Canadian Landscape</div>
   <div class="section-title">Where Progress Stalled</div>
-  <p class="section-subtitle">Across Canada, progress was uneven. These cancers reflect the spread in the data, ranging from strong mortality decline to little movement to clear worsening between 1997 and 2017, with each badge giving the mortality change over that period.</p>
+  <p class="section-subtitle">Colorectal cancer showed what progress looks like when screening and treatment align, but not all cancers followed the same path. Across Canada, these eight cancers reflect the full spread, from strong mortality decline to little movement to clear worsening between 1997 and 2017.</p>
   <div class="spark-legend">
     <div class="spark-legend-item"><div class="spark-legend-swatch" style="background:var(--teal)"></div> Mortality declined</div>
     <div class="spark-legend-item"><div class="spark-legend-swatch" style="background:var(--rust)"></div> Mortality increased</div>
@@ -220,7 +220,7 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
 <div id="sexgap" class="section">
   <div class="section-eyebrow">05 · Sex Disparities</div>
   <div class="section-title">Men and Women Responded Differently</div>
-  <p class="section-subtitle">Changes in cancer mortality were not shared equally between men and women. These sites reflect the range of sex disparities in the data, from large gaps in mortality change to much smaller ones between 1997 and 2017.</p>
+  <p class="section-subtitle">The previous section showed uneven progress across cancer types. This section asks whether that progress was shared equally between men and women, comparing mortality change by sex from 1997 to 2017.</p>
   <div class="chart-wrap" id="viz10"></div>
 </div>
 <div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Improvement was not always shared equally between men and women.</strong> For some cancers, especially lung and liver, mortality changed at very different rates by sex, while for others the gap was much smaller.</div></div></div>
@@ -357,8 +357,8 @@ window.addEventListener('scroll',()=>{const h=document.documentElement;document.
 // ===== FEATURE 3: KPI COUNTERS =====
 (function(){
   const kpis=[
-    {label:"Largest CRC Decline",numVal:-49.7,suffix:"%",note:"Australia led all countries in reducing colorectal cancer mortality.",accent:C.TEAL},
-    {label:"Largest CRC Increase",numVal:110.8,suffix:"%",prefix:"+",note:"Paraguay saw colorectal cancer mortality more than double.",accent:C.RUST},
+    {label:"Largest Colorectal Decline",numVal:-49.7,suffix:"%",note:"Australia led all countries in reducing colorectal cancer mortality.",accent:C.TEAL},
+    {label:"Largest Colorectal Increase",numVal:110.8,suffix:"%",prefix:"+",note:"Paraguay saw colorectal cancer mortality more than double.",accent:C.RUST},
     {label:"Liver Cancer in Canada",numVal:125,suffix:"%",prefix:"+",note:"Male liver cancer mortality more than doubled while most cancers improved.",accent:C.RUST}  
   ];
   const grid=document.getElementById('kpiGrid');
@@ -426,12 +426,13 @@ function renderViz1(measure,animate){
     const valLabel=svg.append('text').attr('x',zero).attr('y',cy+6).attr('text-anchor',improved?'start':'end').attr('fill',C.BG).attr('font-size',16).attr('font-weight',700).attr('opacity',0).text(`${d.pct>0?'+':''}${d.pct.toFixed(0)}%`);
     barEls.push({bar,valLabel,finalX,barW,improved,lx,i});
   });
-  svg.append('text').attr('x',W/2).attr('y',H-22).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('% Change in CRC '+measureLabel+' ASR');
+  svg.append('text').attr('x',W/2).attr('y',H-22).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('% Change in Colorectal Cancer '+measureLabel+' (Age-Standardized Rate)');
   svg.append('text').attr('x',W/2).attr('y',H-6).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text('1997 \u2192 2017');
   if(animate){
     barEls.forEach(({bar,valLabel,finalX,barW,improved,lx,i})=>{
-      bar.transition().duration(800).delay(i*120).ease(d3.easeCubicOut).attr('x',improved?finalX:zero).attr('width',barW);
-      valLabel.transition().duration(400).delay(i*120+600).attr('x',lx).attr('opacity',1);
+      bar.attr('x',improved?finalX:zero).attr('width',barW).attr('opacity',0);
+      bar.transition().duration(500).delay(i*100).ease(d3.easeCubicOut).attr('opacity',1);
+      valLabel.transition().duration(400).delay(i*100+400).attr('x',lx).attr('opacity',1);
     });
   } else {
     barEls.forEach(({bar,valLabel,finalX,barW,improved,lx})=>{
@@ -529,9 +530,9 @@ function renderViz2(sex,animate){
   svg.append('text').attr('x',W/2).attr('y',30).attr('text-anchor','middle').attr('fill',C.FG).attr('font-size',17).attr('font-weight',700).attr('font-family',FONT2).text(`Canada vs Australia: Colorectal Cancer Trends (${label})`);
   y.ticks(5).forEach(v=>{svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.GRID);svg.append('text').attr('x',m.l-10).attr('y',y(v)+4).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text(v)});
   d3.range(1997,2018,3).concat([2017]).forEach(yr=>{svg.append('text').attr('x',x(yr)).attr('y',H-m.b+24).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});
-  svg.append('text').attr('x',24).attr('y',(m.t+H-m.b)/2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).attr('transform',`rotate(-90,24,${(m.t+H-m.b)/2})`).text('ASR per 100,000');
+  svg.append('text').attr('x',24).attr('y',(m.t+H-m.b)/2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).attr('transform',`rotate(-90,24,${(m.t+H-m.b)/2})`).text('Age-Standardized Rate per 100,000');
   svg.append('text').attr('x',(m.l+(W-m.r))/2).attr('y',H-m.b+38).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');
-  const milestones=[{yr:2000,label:'FOLFOX'},{yr:2004,label:'Bevacizumab'},{yr:2006,label:'AUS Screening'},{yr:2008,label:'ON Screening'}];
+  const milestones=[{yr:2000,label:'New chemo regimen'},{yr:2004,label:'Targeted therapy'},{yr:2006,label:'AUS national screening'},{yr:2008,label:'Ontario screening'}];
   milestones.forEach(ms=>{
     svg.append('line').attr('x1',x(ms.yr)).attr('x2',x(ms.yr)).attr('y1',m.t).attr('y2',H-m.b).attr('stroke',C.GOLD).attr('stroke-width',1.1).attr('stroke-dasharray','4,4').attr('opacity',0.7);
     svg.append('text').attr('x',x(ms.yr)+3).attr('y',m.t+12).attr('fill',C.GOLD).attr('font-size',9.5).attr('font-weight',600).text(ms.label);
@@ -723,7 +724,7 @@ function drawDetailChart(site,sex,ctx){const chartEl=document.getElementById('de
   cells.forEach(c=>{c.style.opacity='0';c.style.transition='opacity 0.3s'});
   const hObs=new IntersectionObserver(([e])=>{
     if(!e.isIntersecting)return;hObs.disconnect();
-    cells.forEach((c,i)=>{setTimeout(()=>{c.style.opacity='1'},i*12)});
+    cells.forEach((c,i)=>{setTimeout(()=>{c.style.opacity='1'},i*6)});
   },{threshold:0.15});
   hObs.observe(document.getElementById('viz4'));
 })();
