@@ -233,7 +233,7 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
   <div class="takeaway-card">
     <div class="takeaway-eyebrow">In Summary</div>
     <div class="takeaway-headline">Progress Is Real but Uneven, and the Gaps Are as Important as the Gains</div>
-    <div class="takeaway-body">Colorectal cancer mortality fell by half in Australia but more than doubled in Paraguay, a gap shaped by differences in when screening began and how quickly treatment advanced. Canada and Australia started from similar burdens, yet diverged as Australia moved earlier on organized screening. Within Canada, progress was highly uneven: lung and stomach cancer mortality declined sharply, while liver cancer surged and pancreas barely moved. And even where mortality improved, it did not improve equally for everyone. Lung cancer mortality fell five times faster in men than in women, and liver cancer worsened for both sexes but far more steeply in women. The data make clear that breakthroughs in one country, one cancer, or one sex do not automatically transfer to others.</div>
+    <div class="takeaway-body">At first glance, the data show progress. Colorectal cancer mortality fell in many countries, and several cancers in Canada declined over two decades. But the closer you look, the more the gaps define the story. Australia and Canada started from similar positions, yet screening timing alone opened a widening divide. Within Canada, lung and stomach cancer mortality dropped while liver cancer more than doubled. And even where mortality fell, it did not fall the same way for men and women. What emerges is not a story of failure or success, but of uneven reach, where breakthroughs arrived for some cancers, some countries, and some populations, but not for others.</div>
   </div>
 </div>
 
@@ -361,7 +361,7 @@ window.addEventListener('scroll',()=>{const h=document.documentElement;document.
     {label:"Largest CRC Mortality Decline",numVal:-50,suffix:"%",note:"Australia cut colorectal cancer mortality the most.",accent:C.TEAL},
     {label:"Canada vs Australia Gap",text:"2x",note:"Australia's mortality decline was roughly twice as large after earlier screening uptake.",accent:C.TEAL},
     {label:"Liver Cancer in Canada",numVal:213,suffix:"%",prefix:"+",note:"Female liver cancer mortality more than tripled from 1997 to 2017.",accent:C.RUST},
-    {label:"Lung Sex Gap",text:"44% vs 9%",note:"Male lung cancer mortality fell about five times faster than female.",accent:C.BLUE}
+    {label:"Sex Gap",text:"44% vs 9%",note:"Male lung cancer mortality fell about five times faster than female.",accent:C.BLUE}
   ];
   const grid=document.getElementById('kpiGrid');
   kpis.forEach(k=>{
@@ -430,23 +430,12 @@ function renderViz1(measure,animate){
   });
   svg.append('text').attr('x',W/2).attr('y',H-16).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text('% Change in Colorectal Cancer '+measureLabel+' (ASR)');
   svg.append('text').attr('x',W/2).attr('y',H-2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',10).text('1997 \u2192 2017');
-  if(animate){
-    barEls.forEach(({bar,valLabel,finalX,barW,improved,lx,i})=>{
-      bar.attr('x',improved?finalX:zero).attr('width',barW).attr('opacity',0);
-      bar.transition().duration(500).delay(i*100).ease(d3.easeCubicOut).attr('opacity',1);
-      valLabel.transition().duration(400).delay(i*100+400).attr('x',lx).attr('opacity',1);
-    });
-  } else {
-    barEls.forEach(({bar,valLabel,finalX,barW,improved,lx})=>{
+  barEls.forEach(({bar,valLabel,finalX,barW,improved,lx})=>{
       bar.attr('x',improved?finalX:zero).attr('width',barW);
       valLabel.attr('x',lx).attr('opacity',1);
     });
-  }
 }
-const v1obs=new IntersectionObserver(([e])=>{
-  if(!e.isIntersecting)return;v1obs.disconnect();renderViz1('Incidence',true);
-},{threshold:0.2});
-v1obs.observe(document.getElementById('viz1'));
+renderViz1('Incidence',false);
 document.getElementById('measureToggle').addEventListener('click',e=>{
   if(e.target.tagName==='BUTTON'){
     currentMeasure=e.target.dataset.measure;
@@ -496,10 +485,8 @@ function drawBarDetailChart(country,measure){
   if(fVals.length)series.push({vals:fVals,color:C.COPPER,width:2.2,label:'Females'});
   series.forEach(s=>{
     const p=svg.append('path').attr('d',line(s.vals)).attr('fill','none').attr('stroke',s.color).attr('stroke-width',s.width);
-    const len=p.node().getTotalLength();
-    p.attr('stroke-dasharray',len).attr('stroke-dashoffset',len).transition().duration(1200).ease(d3.easeCubicOut).attr('stroke-dashoffset',0);
     const ev=s.vals[s.vals.length-1];
-    svg.append('text').attr('x',W-m.r+10).attr('y',y(ev)+4).attr('fill',s.color).attr('font-size',11).attr('font-weight',700).attr('opacity',0).text(`${s.label}: ${ev.toFixed(1)}`).transition().delay(1100).duration(400).attr('opacity',1);
+    svg.append('text').attr('x',W-m.r+10).attr('y',y(ev)+4).attr('fill',s.color).attr('font-size',11).attr('font-weight',700).text(`${s.label}: ${ev.toFixed(1)}`);
   });
   
   const crossG=svg.append('g').style('display','none');
@@ -546,22 +533,12 @@ function renderViz2(sex,animate){
     const p=svg.append('path').attr('d',line(s.vals)).attr('fill','none').attr('stroke',s.color).attr('stroke-width',s.width);
     if(s.dash)p.attr('stroke-dasharray',s.dash);
     // FEATURE 2: line drawing animation
-    if(animate){
-      const len=p.node().getTotalLength();
-      if(!s.dash){
-        p.attr('stroke-dasharray',len).attr('stroke-dashoffset',len).transition().duration(1500).ease(d3.easeCubicOut).attr('stroke-dashoffset',0);
-      } else {
-        const clipId='clip-'+s.label.replace(/\W/g,'');
-        const clipRect=svg.append('defs').append('clipPath').attr('id',clipId).append('rect').attr('x',m.l).attr('y',0).attr('width',0).attr('height',H);
-        clipRect.transition().duration(1500).ease(d3.easeCubicOut).attr('width',W-m.l);
-        p.attr('clip-path','url(#'+clipId+')');
-      }
-    }
+    
     const ev=s.vals[s.vals.length-1];
     const endG=svg.append('g');
     endG.append('circle').attr('cx',x(2017)).attr('cy',y(ev)).attr('r',4).attr('fill',s.color);
     endG.append('text').attr('x',x(2017)+18).attr('y',y(ev)+4).attr('fill',s.color).attr('font-size',12).attr('font-weight',700).text(`${s.label} (${ev.toFixed(1)})`);
-    if(animate)endG.attr('opacity',0).transition().delay(1400).duration(400).attr('opacity',1);
+    
   });
   // FEATURE 4: CROSSHAIR TOOLTIP
   const legend=svg.append('g').attr('transform',`translate(${m.l + (W-m.l-m.r-510)/2},${H-m.b+58})`);
@@ -597,10 +574,7 @@ function renderViz2(sex,animate){
   
 }
 // Initial render with line animation on scroll
-const v2obs=new IntersectionObserver(([e])=>{
-  if(!e.isIntersecting)return;v2obs.disconnect();renderViz2('M',true);
-},{threshold:0.15});
-v2obs.observe(document.getElementById('viz2'));
+renderViz2('M',false);
 // FEATURE 5: SMOOTH MORPH on sex toggle
 document.getElementById('sexToggle').addEventListener('click',e=>{
   if(e.target.tagName==='BUTTON'){
@@ -618,8 +592,8 @@ cancerSites.forEach(site=>{const maleM=sparkData[`${site.name}|M|Mortality`]||[]
     svgEl.append('text').attr('x',W-pad).attr('y',H-1).attr('text-anchor','end').attr('font-size',6.5).attr('fill',C.SUB).attr('opacity',0.5).text('2017');cell.addEventListener('click',()=>{if(window._sparkCurrent===site.name){document.getElementById('sparkOverlay').style.display='none';grid.querySelectorAll('.spark-cell').forEach(c=>c.classList.remove('active'));window._sparkCurrent=null;return}window._sparkCurrent=site.name;detailSex=site.sex;grid.querySelectorAll('.spark-cell').forEach(c=>c.classList.remove('active'));cell.classList.add('active');renderDetail(site)});grid.appendChild(cell)});
 function renderDetail(site){const body=document.getElementById('sparkModalBody');body.innerHTML='';const ctx=sparkContext[site.name]||{};const hasMale=(sparkData[`${site.name}|M|Mortality`]||[]).length>0;const hasFem=(sparkData[`${site.name}|F|Mortality`]||[]).length>0;let toggleHTML='';if(hasMale&&hasFem){toggleHTML=`<div class="sex-toggle" id="detailSexToggle" style="margin:8px 0 16px"><button class="${detailSex==='M'?'active':''}" data-sex="M">Male</button><button class="${detailSex==='F'?'active':''}" data-sex="F">Female</button></div>`}body.innerHTML=`<div style="font-family:'Outfit',system-ui,sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.01em;margin-bottom:10px">${site.short}: Incidence vs Mortality</div><div style="font-size:14px;line-height:1.55;color:var(--muted);margin-bottom:18px">${ctx.note||''}</div>${toggleHTML}<div id="detailChart"></div>`;const overlay=document.getElementById('sparkOverlay');overlay.style.display='flex';overlay.style.opacity='0';requestAnimationFrame(()=>{overlay.style.opacity='1'});const tog=document.getElementById('detailSexToggle');if(tog)tog.addEventListener('click',e=>{if(e.target.tagName==='BUTTON'){detailSex=e.target.dataset.sex;tog.querySelectorAll('button').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');drawDetailChart(site,detailSex,ctx)}});drawDetailChart(site,detailSex,ctx)}
 function drawDetailChart(site,sex,ctx){const chartEl=document.getElementById('detailChart');chartEl.innerHTML='';const mort=sparkData[`${site.name}|${sex}|Mortality`]||[];const inc=sparkData[`${site.name}|${sex}|Incidence`]||[];const sexLabel=sex==='F'?'Females':'Males';const lineColor=sex==='F'?C.COPPER:C.BLUE;const W=1140,H=440,m={t:52,r:160,b:64,l:64};const allV=[...mort,...inc].filter(v=>v!=null);const yMax=(d3.max(allV)||10)*1.08;const x=d3.scaleLinear().domain([1997,2017]).range([m.l,W-m.r]);const y=d3.scaleLinear().domain([0,yMax]).range([H-m.b,m.t]);const svg=d3.select(chartEl).append('svg').attr('width',W).attr('height',H).style('display','block').style('max-width','100%').style('font-family',FONT);y.ticks(5).forEach(v=>{svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.GRID);svg.append('text').attr('x',m.l-8).attr('y',y(v)+4).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text(v)});[...new Set(d3.range(1997,2018,2).concat([2017]))].forEach(yr=>{svg.append('text').attr('x',x(yr)).attr('y',H-m.b+24).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});svg.append('text').attr('x',20).attr('y',(m.t+H-m.b)/2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).attr('transform',`rotate(-90,20,${(m.t+H-m.b)/2})`).text('ASR per 100,000');const line=d3.line().defined(v=>v!=null).x((_,i)=>x(1997+i)).y(d=>y(d)).curve(d3.curveMonotoneX);if(inc.length){const incPath=svg.append('path').attr('d',line(inc)).attr('fill','none').attr('stroke',lineColor).attr('stroke-width',2.8);
-    const incLen=incPath.node().getTotalLength();incPath.attr('stroke-dasharray',incLen).attr('stroke-dashoffset',incLen).transition().duration(1200).ease(d3.easeCubicOut).attr('stroke-dashoffset',0);svg.append('text').attr('x',W-m.r+10).attr('y',y(inc[20])+4).attr('fill',lineColor).attr('font-size',11).attr('font-weight',700).attr('opacity',0).text(`Incidence: ${inc[20]}`).transition().delay(1100).duration(400).attr('opacity',1)}if(mort.length){const mortPath=svg.append('path').attr('d',line(mort)).attr('fill','none').attr('stroke',lineColor).attr('stroke-width',2).attr('stroke-dasharray','6,4').attr('opacity',0.8);
-    const mortLen=mortPath.node().getTotalLength();const mortDash='6,4';mortPath.attr('stroke-dasharray',mortLen).attr('stroke-dashoffset',mortLen).transition().duration(1200).delay(200).ease(d3.easeCubicOut).attr('stroke-dashoffset',0).on('end',()=>{mortPath.attr('stroke-dasharray',mortDash)});svg.append('text').attr('x',W-m.r+10).attr('y',y(mort[20])+4).attr('fill',lineColor).attr('font-size',11).attr('font-weight',600).attr('opacity',0).text(`Mortality: ${mort[20]}`).transition().delay(1300).duration(400).attr('opacity',0.8)}if(ctx.type==='annotation'&&ctx.items){ctx.items.forEach(a=>{if(a.y>=1997&&a.y<=2017){svg.append('line').attr('x1',x(a.y)).attr('x2',x(a.y)).attr('y1',m.t).attr('y2',H-m.b).attr('stroke',a.c||C.GOLD).attr('stroke-width',1).attr('stroke-dasharray','4,4').attr('opacity',0.75);svg.append('text').attr('x',x(a.y)+4).attr('y',m.t+12).attr('fill',a.c||C.GOLD).attr('font-size',10).attr('font-weight',700).text(a.label)}})}if(ctx.type==='overlay'&&ctx.data){const oD=ctx.data,oMax=d3.max(oD.filter(v=>v!=null))||10,oy=d3.scaleLinear().domain([0,oMax*1.15]).range([H-m.b,m.t]),oLine=d3.line().defined(v=>v!=null).x((_,i)=>x(1997+i)).y(d=>oy(d)).curve(d3.curveMonotoneX);svg.append('path').attr('d',oLine(oD)).attr('fill','none').attr('stroke',ctx.color||C.GOLD).attr('stroke-width',1.8).attr('stroke-dasharray','2,5').attr('opacity',0.75);oD.forEach((v,i)=>{if(v!=null)svg.append('circle').attr('cx',x(1997+i)).attr('cy',oy(v)).attr('r',2.5).attr('fill',ctx.color||C.GOLD).attr('opacity',0.7)});svg.append('text').attr('x',m.l+6).attr('y',H-m.b+36).attr('text-anchor','start').attr('fill',ctx.color||C.GOLD).attr('font-size',10).attr('font-weight',600).text(ctx.label||'');svg.append('text').attr('x',m.l+6).attr('y',H-m.b+48).attr('text-anchor','start').attr('fill',ctx.color||C.GOLD).attr('font-size',9).attr('opacity',0.6).text('(gaps = no survey data)')}const crossG2=svg.append('g').style('display','none');
+    svg.append('text').attr('x',W-m.r+10).attr('y',y(inc[20])+4).attr('fill',lineColor).attr('font-size',11).attr('font-weight',700).text(`Incidence: ${inc[20]}`)}if(mort.length){const mortPath=svg.append('path').attr('d',line(mort)).attr('fill','none').attr('stroke',lineColor).attr('stroke-width',2).attr('stroke-dasharray','6,4').attr('opacity',0.8);
+    svg.append('text').attr('x',W-m.r+10).attr('y',y(mort[20])+4).attr('fill',lineColor).attr('font-size',11).attr('font-weight',600).attr('opacity',0.8).text(`Mortality: ${mort[20]}`)}if(ctx.type==='annotation'&&ctx.items){ctx.items.forEach(a=>{if(a.y>=1997&&a.y<=2017){svg.append('line').attr('x1',x(a.y)).attr('x2',x(a.y)).attr('y1',m.t).attr('y2',H-m.b).attr('stroke',a.c||C.GOLD).attr('stroke-width',1).attr('stroke-dasharray','4,4').attr('opacity',0.75);svg.append('text').attr('x',x(a.y)+4).attr('y',m.t+12).attr('fill',a.c||C.GOLD).attr('font-size',10).attr('font-weight',700).text(a.label)}})}if(ctx.type==='overlay'&&ctx.data){const oD=ctx.data,oMax=d3.max(oD.filter(v=>v!=null))||10,oy=d3.scaleLinear().domain([0,oMax*1.15]).range([H-m.b,m.t]);oD.forEach((v,i)=>{if(v!=null)svg.append('circle').attr('cx',x(1997+i)).attr('cy',oy(v)).attr('r',3).attr('fill',ctx.color||C.GOLD).attr('opacity',0.6)});svg.append('text').attr('x',W-m.r+10).attr('y',oy(oD.filter(v=>v!=null).pop())+4).attr('fill',ctx.color||C.GOLD).attr('font-size',10).attr('font-weight',600).text(ctx.label||'')}const crossG2=svg.append('g').style('display','none');
     crossG2.append('line').attr('y1',m.t).attr('y2',H-m.b).attr('stroke',C.FG).attr('stroke-width',0.8).attr('stroke-dasharray','3,3').attr('opacity',0.5);
     const cDotInc=crossG2.append('circle').attr('r',4).attr('fill',lineColor).attr('stroke','#fff').attr('stroke-width',1.5);
     const cDotMort=crossG2.append('circle').attr('r',4).attr('fill',lineColor).attr('stroke','#fff').attr('stroke-width',1.5).attr('opacity',0.8);
@@ -721,95 +695,21 @@ function drawDetailChart(site,sex,ctx){const chartEl=document.getElementById('de
 })();
 
 // ===== FEATURE 9: HEATMAP CASCADE =====
-(function(){
-  const cells=document.querySelectorAll('#viz4 rect[data-country]');
-  cells.forEach(c=>{c.style.opacity='0';c.style.transition='opacity 0.3s'});
-  const hObs=new IntersectionObserver(([e])=>{
-    if(!e.isIntersecting)return;hObs.disconnect();
-    cells.forEach((c,i)=>{setTimeout(()=>{c.style.opacity='1'},i*6)});
-  },{threshold:0.15});
-  hObs.observe(document.getElementById('viz4'));
-})();
+
 
 
 
 // ===== FEATURE 11: VIZ 7 BAR GROWTH =====
-(function(){
-  const svg=document.querySelector('#viz10 svg');
-  if(!svg)return;
-  const bars=svg.querySelectorAll('rect[rx="4"]');
-  const barData=[];
-  bars.forEach(b=>{
-    const finalY=parseFloat(b.getAttribute('y'));
-    const finalH=parseFloat(b.getAttribute('height'));
-    // Find zero line y position
-    const zeroLine=svg.querySelector('line[stroke-width="1.5"]');
-    const zeroY=zeroLine?parseFloat(zeroLine.getAttribute('y1')):finalY;
-    barData.push({el:b,finalY,finalH,zeroY});
-    b.setAttribute('y',zeroY);b.setAttribute('height',0);
-  });
-  const bObs=new IntersectionObserver(([e])=>{
-    if(!e.isIntersecting)return;bObs.disconnect();
-    barData.forEach((d,i)=>{
-      setTimeout(()=>{
-        d.el.style.transition='y 0.6s cubic-bezier(0.4,0,0.2,1), height 0.6s cubic-bezier(0.4,0,0.2,1)';
-        d.el.setAttribute('y',d.finalY);d.el.setAttribute('height',d.finalH);
-      },i*60);
-    });
-  },{threshold:0.15});
-  bObs.observe(document.getElementById('viz10'));
-})();
+
 
 // ===== FEATURE 13: SPARKLINE CARD STAGGER =====
-(function(){
-  const cards=document.querySelectorAll('.spark-cell');
-  cards.forEach((c,i)=>{c.style.opacity='0';c.style.transform='translateY(16px)';c.style.transition=`opacity 0.4s ${i*80}ms, transform 0.4s ${i*80}ms`});
-  const scObs=new IntersectionObserver(([e])=>{
-    if(!e.isIntersecting)return;scObs.disconnect();
-    cards.forEach(c=>{c.style.opacity='1';c.style.transform='translateY(0)'});
-  },{threshold:0.08});
-  scObs.observe(document.getElementById('sparkGrid'));
-})();
+
 
 // ===== FEATURE 14: HEATMAP % NUMBER ANIMATION =====
-(function(){
-  const pctTexts=document.querySelectorAll('#viz4 text[font-weight="700"]');
-  if(!pctTexts.length)return;
-  const origValues=[];
-  pctTexts.forEach(t=>{const txt=t.textContent;const num=parseFloat(txt);origValues.push({el:t,num,txt});t.textContent='0%'});
-  const nObs=new IntersectionObserver(([e])=>{
-    if(!e.isIntersecting)return;nObs.disconnect();
-    origValues.forEach(({el,num,txt})=>{
-      const start=performance.now(),dur=800;
-      function tick(now){
-        const t=Math.min((now-start)/dur,1);const ease=1-Math.pow(1-t,3);
-        const v=num*ease;
-        el.textContent=`${v>0?'+':''}${Math.round(v)}%`;
-        if(t<1)requestAnimationFrame(tick);else el.textContent=txt;
-      }
-      requestAnimationFrame(tick);
-    });
-  },{threshold:0.2});
-  nObs.observe(document.getElementById('viz4'));
-})();
+
 
 // ===== FEATURE 15: VIZ 3 SPARKLINE PATH DRAWING =====
-(function(){
-  const paths=document.querySelectorAll('#sparkGrid path');
-  paths.forEach(p=>{
-    const len=p.getTotalLength();
-    p.style.strokeDasharray=len;
-    p.style.strokeDashoffset=len;
-    p.style.transition='stroke-dashoffset 1s cubic-bezier(0.4,0,0.2,1)';
-  });
-  const spObs=new IntersectionObserver(([e])=>{
-    if(!e.isIntersecting)return;spObs.disconnect();
-    paths.forEach((p,i)=>{
-      setTimeout(()=>{p.style.strokeDashoffset='0'},i*60);
-    });
-  },{threshold:0.1});
-  spObs.observe(document.getElementById('sparkGrid'));
-})();
+
 
 // ===== FEATURE 19: SCROLL-TO-TOP BUTTON =====
 document.getElementById('keyTermsBtn').addEventListener('click',()=>{const o=document.getElementById('keyTermsOverlay');o.style.display='flex';o.style.opacity='0';requestAnimationFrame(()=>{o.style.opacity='1'})});
@@ -825,19 +725,7 @@ document.getElementById('keyTermsBtn').addEventListener('click',()=>{const o=doc
 })();
 
 // ===== FEATURE 20: CROSSHAIR DOT HALOS =====
-(function(){
-  const dots=document.querySelectorAll('#viz2 circle[r="4"]');
-  dots.forEach(d=>{
-    const halo=d.cloneNode();
-    halo.setAttribute('r','8');
-    halo.setAttribute('fill','none');
-    halo.setAttribute('stroke',d.getAttribute('fill'));
-    halo.setAttribute('stroke-width','1.5');
-    halo.setAttribute('opacity','0.3');
-    halo.style.filter='blur(2px)';
-    d.parentNode.insertBefore(halo,d);
-  });
-})();
+
 
 </script>
 </body>
