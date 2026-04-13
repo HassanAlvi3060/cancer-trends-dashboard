@@ -68,7 +68,7 @@ body.dark .section-eyebrow{background:rgba(255,255,255,0.05);border-color:rgba(2
 body.dark .kpi-card{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08)}
 body.dark .kpi-card:hover{background:rgba(255,255,255,0.08);box-shadow:0 6px 20px rgba(0,0,0,0.2)}
 .kpi-label{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.kpi-value{font-family:'Outfit',system-ui,sans-serif;font-size:38px;font-weight:600;line-height:1.1;margin-bottom:6px;letter-spacing:-0.02em;color:var(--teal)}
+.kpi-value{font-family:'Outfit',system-ui,sans-serif;font-size:38px;font-weight:600;line-height:1.1;margin-bottom:6px;letter-spacing:-0.02em;color:var(--text)}
 .kpi-note{font-size:12.5px;line-height:1.4;color:var(--muted)}
 .chart-wrap{overflow-x:hidden;-webkit-overflow-scrolling:touch;margin:0 0 10px}
 .chart-wrap svg{display:block}
@@ -133,7 +133,7 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
 <div id="sparklines" class="section">
   <div class="section-eyebrow">01 · Canadian Landscape</div>
   <div class="section-title">Where Progress Stalled</div>
-  <p class="section-subtitle">Not all cancers responded the same way over the past two decades. In Canada, some saw sharp declines in mortality while others barely moved or worsened. These eight cancers capture the full range of outcomes from 1997 to 2017.</p>
+  <p class="section-subtitle">Not all cancers responded the same way over the past two decades. In Canada, some saw sharp declines in mortality while others barely moved or worsened. The cards below show where progress was made and where it was not.</p>
   <div class="spark-legend" id="sparkLegend"></div>
   <div class="spark-hint">Click any card to expand the full Incidence vs Mortality chart with contextual annotations.</div>
   <div class="spark-grid" id="sparkGrid"></div>
@@ -162,7 +162,7 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
   <div class="spark-hint">Click any bar to explore the full trend over time.</div>
   <div class="chart-wrap" id="viz1"></div>
 </div>
-<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Mortality and incidence did not move together in the same way everywhere.</strong> Some countries made clear progress on colorectal cancer, while others experienced rising incidence, worsening mortality, or both, revealing how uneven outcomes remained from 1997 to 2017.</div></div></div>
+<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Australia and Czechia cut colorectal cancer mortality by roughly half, while the Philippines and Paraguay saw it nearly double.</strong> The gap between the best and worst performing countries widened considerably from 1997 to 2017, and similar divergence appeared in incidence data.</div></div></div>
 <div class="section-divider"></div>
 <div id="heatmap" class="section">
   <div class="section-eyebrow">04 · Global Incidence</div>
@@ -170,7 +170,7 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
   <p class="section-subtitle">Year by year, these 12 countries reveal how differently colorectal cancer incidence evolved. Color encodes each country's change relative to its own 1997 baseline, making it possible to compare trajectories even when starting rates differed widely.</p>
   <div class="chart-wrap" id="viz4" style="overflow-x:hidden"></div>
 </div>
-<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Countries were not all moving in the same direction.</strong> Relative to their own 1997 starting point, some saw colorectal cancer incidence fall over time, while others experienced steady increases that widened the global spread.</div></div></div>
+<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>The USA and Czechia reduced male colorectal cancer incidence by more than 28% from their 1997 baselines, while Thailand nearly doubled and Belarus rose over 55%.</strong> The divergence between improving and worsening countries accelerated after 2007, with no sign of convergence by 2017.</div></div></div>
 <div class="section-divider"></div>
 <div id="compare" class="section">
   <div class="section-eyebrow">05 · Head to Head</div>
@@ -226,17 +226,17 @@ document.getElementById('themeToggle').addEventListener('click',()=>{document.bo
 // COLOR SYSTEM — new encoding
 const C=isDark?{
   BG:"#1A1B1E",FG:"#D6D2CC",SUB:"#8A857E",GRID:"#282A2E",AXIS:"#3C3E43",GRIDL:"#282A2E",DIV:"#333538",MID:"#2A2622",
-  MALE:"#B0A0C0",FEMALE:"#CC9B7A",
+  MALE:"#B5A5C5",FEMALE:"#C9A07A",
   IMPROVE:"#6BB8C0",WORSEN:"#C0808E",
   IMPROVE_S:"rgba(107,184,192,0.14)",WORSEN_S:"rgba(192,128,142,0.14)",
-  CAN:"#B0A0C0",AUS:"#CC9B7A",
+  CAN:"#7BCCD5",AUS:"#D4949F",
   GOLD:"#D4A06A",COPPER:"#CC9B7A"
 }:{
   BG:"#FAF8F4",FG:"#2F2A26",SUB:"#7A746C",GRID:"#DDD6CC",AXIS:"#CFC7BB",GRIDL:"#E6DED3",DIV:"#D8CFC3",MID:"#F3E8DA",
-  MALE:"#6B5B7B",FEMALE:"#C08B4A",
+  MALE:"#73647F",FEMALE:"#B5924F",
   IMPROVE:"#274E55",WORSEN:"#532E3B",
   IMPROVE_S:"rgba(39,78,85,0.12)",WORSEN_S:"rgba(83,46,59,0.12)",
-  CAN:"#6B5B7B",AUS:"#C08B4A",
+  CAN:"#2B6B78",AUS:"#8B4A5E",
   GOLD:"#B08845",COPPER:"#A0764D"
 };
 
@@ -245,7 +245,7 @@ const sparkContext={
   "Corpus uteri":{type:"annotation",items:[],note:"Endometrial cancer incidence rose steadily while mortality remained low."},
   "Pancreas":{type:"annotation",items:[{y:1997,label:"Gemcitabine",c:C.FG},{y:2011,label:"FOLFIRINOX",c:C.FG}],note:"Little mortality improvement despite modest treatment advances."},
   "Brain and central nervous system":{type:"annotation",items:[{y:2005,label:"Temozolomide",c:C.FG}],note:"Brain/CNS mortality stayed flat. Few therapies changed long-term survival."},
-  "Lung":{type:"overlay",label:"Smoking prevalence (%)",color:C.SUB,data:canadaSmoking,note:"Mortality fell sharply alongside declining smoking prevalence."},
+  "Lung":{type:"overlay",label:"Smoking (%)",color:C.SUB,data:canadaSmoking,note:"Mortality fell sharply alongside declining smoking prevalence."},
   "Stomach":{type:"annotation",items:[],note:"One of Canada's clearest mortality declines, falling steadily across both sexes over two decades."},
   "Breast":{type:"annotation",items:[{y:1998,label:"Trastuzumab",c:C.FG},{y:2005,label:"Aromatase inhibitors",c:C.FG}],note:"Mortality fell while incidence held steady, reflecting advances in detection and treatment."},
   "Colorectum":{type:"annotation",items:[{y:2000,label:"FOLFOX",c:C.FG},{y:2004,label:"Bevacizumab",c:C.FG},{y:2007,label:"AB screening",c:C.FG}],note:"Screening and treatment brought moderate gains, but progress was slower than for some other cancers."}
@@ -335,9 +335,9 @@ function drawBarDetailChart(country,measure,sex){
   svg.append('text').attr('x',m.l+(W-m.l-m.r)/2).attr('y',H-m.b+48).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');
   const line=d3.line().defined(v=>v!=null).x((_,i)=>x(1997+i)).y(d=>y(d)).curve(d3.curveMonotoneX);
   svg.append('path').attr('d',line(vals)).attr('fill','none').attr('stroke',color).attr('stroke-width',2.8);
-  svg.append('text').attr('x',W-m.r+10).attr('y',y(vals[20])+4).attr('fill',color).attr('font-size',12).attr('font-weight',700).text(`${labelPfx} ${measure}: ${vals[20].toFixed(1)}`);
+  svg.append('text').attr('x',W-m.r+10).attr('y',y(vals[20])+4).attr('fill',color).attr('font-size',12).attr('font-weight',700).text(`${measure}: ${vals[20].toFixed(1)}`);
   const crossG=svg.append('g').style('display','none');crossG.append('line').attr('y1',m.t).attr('y2',H-m.b).attr('stroke',C.FG).attr('stroke-width',0.8).attr('stroke-dasharray','3,3').attr('opacity',0.5);const dot=crossG.append('circle').attr('r',4).attr('fill',color).attr('stroke','#fff').attr('stroke-width',1.5);
-  svg.append('rect').attr('x',m.l).attr('y',m.t).attr('width',W-m.l-m.r).attr('height',H-m.t-m.b).attr('fill','transparent').attr('cursor','crosshair').on('mousemove',function(event){const[mx]=d3.pointer(event),yr=Math.round(x.invert(mx));if(yr<1997||yr>2017){crossG.style('display','none');hideTip();return}const idx=yr-1997,v=vals[idx];crossG.style('display',null);crossG.select('line').attr('x1',x(yr)).attr('x2',x(yr));dot.attr('cx',x(yr)).attr('cy',y(v));showTip(`<strong>${country} \u00b7 ${yr}</strong><br>${labelPfx} ${measure}: ${v.toFixed(1)}`,event)}).on('mouseleave',()=>{crossG.style('display','none');hideTip()});
+  svg.append('rect').attr('x',m.l).attr('y',m.t).attr('width',W-m.l-m.r).attr('height',H-m.t-m.b).attr('fill','transparent').attr('cursor','crosshair').on('mousemove',function(event){const[mx]=d3.pointer(event),yr=Math.round(x.invert(mx));if(yr<1997||yr>2017){crossG.style('display','none');hideTip();return}const idx=yr-1997,v=vals[idx];crossG.style('display',null);crossG.select('line').attr('x1',x(yr)).attr('x2',x(yr));dot.attr('cx',x(yr)).attr('cy',y(v));showTip(`<strong>${country} \u00b7 ${yr}</strong><br>${measure}: ${v.toFixed(1)}`,event)}).on('mouseleave',()=>{crossG.style('display','none');hideTip()});
 }
 
 // VIZ 5: Canada vs Australia — uses CAN/AUS colors, solid/dashed, NO legend, milestones on lines
