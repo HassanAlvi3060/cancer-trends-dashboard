@@ -50,12 +50,6 @@ body.dark .theme-toggle:hover{background:rgba(255,255,255,0.1)}
 .section{padding:6.5rem 2rem 5rem;max-width:1280px;margin:0 auto}
 .section .section-eyebrow,.section .section-title,.section .section-subtitle,.section .chart-wrap,.section .chart-caption,.section .sex-toggle,.section .spark-legend,.section .spark-hint,.section .spark-grid,.section .kpi-grid{opacity:1;transform:none}
 
-
-
-
-
-
-
 .g-tooltip{position:fixed;pointer-events:none;background:rgba(255,255,255,0.18);backdrop-filter:blur(32px) saturate(1.4);-webkit-backdrop-filter:blur(32px) saturate(1.4);border:1px solid rgba(255,255,255,0.45);border-radius:14px;padding:12px 16px;font-size:12.5px;line-height:1.6;color:var(--text);box-shadow:0 8px 32px rgba(0,0,0,0.08),inset 0 0 0 0.5px rgba(255,255,255,0.2);white-space:nowrap;z-index:400;opacity:0;transform:translateY(4px);transition:opacity 0.15s,transform 0.15s}
 body.dark .g-tooltip{background:rgba(255,255,255,0.08);backdrop-filter:blur(32px) saturate(1.3);-webkit-backdrop-filter:blur(32px) saturate(1.3);border-color:rgba(255,255,255,0.18);box-shadow:0 8px 32px rgba(0,0,0,0.35),inset 0 0 0 0.5px rgba(255,255,255,0.08)}
 .g-tooltip.visible{opacity:1;transform:translateY(0)}
@@ -75,7 +69,6 @@ body.dark .section-eyebrow{background:rgba(255,255,255,0.05);border-color:rgba(2
 #hero{text-align:center;padding-top:8.5rem;padding-bottom:3rem}
 #hero .section-title{font-size:clamp(28px,4.5vw,42px);max-width:680px;margin:0 auto 16px;letter-spacing:-0.025em;font-weight:600;line-height:1.15}
 #hero .section-subtitle{max-width:520px;margin:0 auto 32px;font-size:15.5px;line-height:1.6;text-align:center}
-
 
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:0 auto;max-width:1100px}
 .kpi-card{text-align:center;padding:20px 20px;background:rgba(243,235,224,0.25);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.25);border-radius:14px;transition:all 0.25s var(--ease)}
@@ -191,9 +184,7 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
 </div>
 <div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Improvement was not always shared equally between men and women.</strong> For some cancers, especially lung and liver, mortality changed at very different rates by sex, while for others the gap was much smaller.</div></div></div>
 
-
 <div class="section-divider"></div>
-
 
 <div class="section visible" style="padding:3rem 2rem">
   <div class="ctx-card" style="max-width:860px;margin:0 auto;text-align:center;padding:36px 44px">
@@ -215,11 +206,10 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
 <div id="heatmap" class="section">
   <div class="section-eyebrow">04 · Global Incidence</div>
   <div class="section-title">Diverging Trajectories</div>
-  <p class="section-subtitle">Year by year, these 12 countries reveal how differently colorectal cancer incidence evolved. Color encodes each country’s change relative to its own 1997 baseline, making it possible to compare trajectories even when starting rates differed widely.</p>
+  <p class="section-subtitle">Year by year, these 12 countries reveal how differently colorectal cancer incidence evolved. Color encodes each country's change relative to its own 1997 baseline, making it possible to compare trajectories even when starting rates differed widely.</p>
   <div class="chart-wrap" id="viz4" style="overflow-x:hidden"></div>
 </div>
 <div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Countries were not all moving in the same direction.</strong> Relative to their own 1997 starting point, some saw colorectal cancer incidence fall over time, while others experienced steady increases that widened the global spread.</div></div></div>
-
 
 <div class="section-divider"></div>
 
@@ -321,12 +311,10 @@ const compareBySex={M:{CAN_I:[40.2,41.6,42.0,43.2,42.5,41.8,40.4,42.2,42.1,41.1,
 const sparkData={"Lung|M|Mortality":[46.9,46.9,47.1,43.0,43.0,42.9,41.2,39.7,39.3,37.7,37.3,35.7,35.3,34.0,32.7,32.1,30.2,30.3,28.6,27.1,26.4],"Lung|M|Incidence":[48.5,49.4,49.2,46.8,46.3,44.4,43.0,42.5,42.2,41.3,40.9,39.2,39.2,37.9,36.3,36.0,37.0,36.8,35.4,34.2,33.9],"Lung|F|Mortality":[23.2,24.7,24.8,24.6,24.3,25.0,24.9,25.4,25.1,25.6,25.2,24.9,24.8,24.6,23.8,23.8,23.5,23.2,22.6,22.0,21.2],"Lung|F|Incidence":[29.7,31.8,30.9,31.6,31.0,31.5,30.7,31.5,32.5,32.3,31.9,31.6,31.7,30.4,30.6,31.0,32.8,33.0,31.8,31.4,31.2],"Breast|F|Mortality":[19.9,19.2,18.2,18.1,18.1,17.6,17.4,16.6,16.2,15.5,15.6,15.1,14.5,14.2,13.8,13.6,13.2,13.3,13.0,13.1,12.8],"Breast|F|Incidence":[80.7,80.9,83.4,78.6,78.6,81.5,76.1,76.5,77.3,76.8,77.6,76.9,79.1,80.7,81.2,78.1,82.5,83.4,82.6,83.0,82.7],"Colorectum|M|Mortality":[15.3,15.4,15.6,15.6,14.6,15.5,14.8,14.8,15.1,14.0,14.2,14.4,13.7,13.1,13.2,12.9,12.7,12.7,12.3,12.2,11.8],"Colorectum|M|Incidence":[40.2,41.6,42.0,43.2,42.5,41.8,40.4,42.2,42.1,41.1,41.5,42.3,40.8,38.4,39.2,38.2,39.7,39.8,39.1,37.1,34.9],"Colorectum|F|Mortality":[9.8,10.1,9.7,9.6,9.5,9.7,9.3,9.6,9.2,8.8,9.3,9.0,8.7,8.5,8.8,8.5,8.5,8.5,8.2,8.3,7.8],"Colorectum|F|Incidence":[27.5,29.0,28.9,29.3,29.0,29.3,28.3,28.6,28.7,27.9,28.5,28.3,28.3,27.7,27.6,27.9,28.5,28.5,28.1,26.6,25.8],"Pancreas|M|Mortality":[6.6,6.9,7.0,6.7,6.9,6.4,6.9,7.0,6.6,6.6,6.8,6.6,6.7,6.2,6.5,6.3,6.9,6.8,6.8,6.8,6.7],"Pancreas|M|Incidence":[6.5,6.7,6.9,6.9,6.8,6.1,6.5,6.7,6.7,6.6,7.0,6.6,6.7,6.2,7.1,7.0,8.2,7.7,7.6,7.9,7.9],"Pancreas|F|Mortality":[5.1,5.2,5.0,5.0,4.9,5.0,5.2,5.2,5.0,5.2,5.1,5.1,5.1,4.9,4.9,5.3,5.2,5.0,5.1,5.1,5.0],"Pancreas|F|Incidence":[5.4,5.4,5.2,5.1,5.0,5.4,5.2,5.4,5.4,5.0,5.4,5.4,5.4,5.2,5.6,5.8,6.4,5.9,5.9,5.8,6.1],"Liver|M|Mortality":[2.4,2.6,2.7,3.7,4.1,3.8,3.9,3.9,4.4,4.0,4.4,4.4,4.3,4.4,4.7,5.1,5.1,5.2,5.4,5.4,5.4],"Liver|M|Incidence":[4.0,3.7,4.0,4.4,4.6,4.4,4.1,4.4,4.8,4.8,5.1,5.2,5.8,5.5,6.0,6.1,7.1,7.0,7.5,6.9,7.1],"Liver|F|Mortality":[0.8,1.0,1.1,1.6,1.6,1.7,1.7,1.7,1.7,1.7,1.9,1.9,1.8,2.0,2.0,2.2,2.4,2.2,2.4,2.4,2.5],"Liver|F|Incidence":[1.2,1.6,1.3,1.5,1.4,1.3,1.3,1.4,1.4,1.7,1.7,1.8,1.8,1.8,2.0,2.3,2.7,2.7,2.7,2.6,2.3],"Stomach|M|Mortality":[5.7,5.6,5.3,5.2,5.0,4.6,4.8,4.5,4.3,4.5,4.2,4.0,3.9,3.6,3.6,3.4,3.4,3.4,3.2,3.3,3.2],"Stomach|M|Incidence":[8.5,8.3,8.1,8.1,7.7,7.1,7.7,7.6,7.2,6.9,7.1,6.9,6.7,6.3,6.4,6.1,6.7,6.8,6.9,6.8,6.2],"Stomach|F|Mortality":[2.5,2.4,2.6,2.5,2.2,2.3,2.2,2.2,2.2,2.0,1.9,2.1,1.8,1.9,1.9,1.8,1.8,1.7,1.6,1.7,1.6],"Stomach|F|Incidence":[3.4,3.6,3.4,3.5,3.4,3.3,3.2,3.2,3.1,3.2,3.4,3.2,3.1,2.9,3.2,3.2,3.2,3.1,3.2,3.1,3.1],"Brain and central nervous system|M|Mortality":[4.5,4.5,4.4,4.5,4.3,4.1,4.1,4.2,4.0,4.3,4.3,4.2,4.3,4.1,4.1,4.2,4.4,4.2,4.4,4.3,4.4],"Brain and central nervous system|M|Incidence":[6.7,6.6,7.0,6.4,6.3,6.5,6.6,6.2,6.3,6.3,6.8,6.9,6.6,6.3,6.6,6.6,6.7,6.0,6.5,6.3,5.9],"Brain and central nervous system|F|Mortality":[2.9,3.0,3.0,2.8,2.9,2.7,2.8,2.7,2.7,2.6,2.6,3.0,2.7,2.9,2.8,2.9,2.9,3.1,3.0,2.9,2.7],"Brain and central nervous system|F|Incidence":[4.7,4.9,5.0,4.6,4.9,4.5,4.6,4.3,4.9,4.6,4.7,4.8,5.0,4.7,4.8,4.7,5.1,4.3,4.6,4.6,4.3],"Corpus uteri|F|Mortality":[1.1,1.2,1.1,1.1,1.0,1.0,1.3,1.1,1.0,1.1,1.3,1.3,1.4,1.4,1.5,1.6,1.5,1.5,1.8,1.8,1.8],"Corpus uteri|F|Incidence":[15.1,15.3,15.5,15.4,15.3,15.7,15.6,15.8,15.6,16.3,16.7,16.8,17.8,18.5,19.0,19.4,19.2,19.1,20.2,20.7,20.4]};
 const canadaSmoking=[27.0,null,25.0,24.0,22.0,21.0,21.0,20.0,19.0,19.0,19.0,18.0,17.5,17.0,17.0,16.0,15.0,null,13.0,null,15.1];
 const canadaObesity=[null,null,null,21,null,null,23,null,null,25,null,null,25,26,null,null,26,null,27,null,27];
-// sparkContext defined after C object below
 const organIcons={"Liver":'<svg viewBox="0 0 32 32" width="26" height="26"><path d="M6 14c0-5 3-8 7-9 3-1 7 0 10 2s5 5 5 8c0 4-2 7-5 8-2 1-5 2-8 2-3 0-6-1-7-3C6 20 6 17 6 14z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',"Corpus uteri":'<svg viewBox="0 0 32 32" width="26" height="26"><path d="M16 26v-8m0 0c0-3-4-5-6-8-1-2-1-4 0-5s3-1 4 0l2 2 2-2c1-1 3-1 4 0s1 3 0 5c-2 3-6 5-6 8z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',"Pancreas":'<svg viewBox="0 0 32 32" width="26" height="26"><path d="M5 16c1-2 3-3 5-3h4c2 0 3-1 4-2s3-2 5-1 3 2 4 4c0 2-1 3-3 4s-5 1-7 0c-1 0-2 1-3 2s-3 2-5 1-4-3-4-5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',"Brain and central nervous system":'<svg viewBox="0 0 32 32" width="26" height="26"><path d="M16 28v-4m0 0c-5 0-9-4-9-9 0-3 1-5 3-7s5-3 6-3 4 1 6 3 3 4 3 7c0 5-4 9-9 9z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M11 11c1-1 3-2 5-2s4 1 5 2M10 16h12" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.5"/></svg>',"Lung":'<svg viewBox="0 0 32 32" width="26" height="26"><path d="M16 6v12m-6-9c-3 1-5 4-5 8 0 3 1 6 3 7s4 1 5 0l3-3m0-12c3 1 5 4 5 8 0 3-1 6-3 7s-4 1-5 0l-3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',"Stomach":'<svg viewBox="0 0 32 32" width="26" height="26"><path d="M12 6c-1 0-2 1-3 3s-2 5-2 7c0 3 1 6 3 8s5 3 7 2 3-3 4-5c1-3 1-6 0-8-1-3-3-5-5-6s-3-1-4-1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',"Breast":'<svg viewBox="0 0 32 32" width="26" height="26"><circle cx="16" cy="17" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/></svg>',"Colorectum":'<svg viewBox="0 0 32 32" width="26" height="26"><path d="M10 8c0 2 1 3 3 3h6c2 0 3 2 3 4s-1 4-3 4h-4c-2 0-3 2-3 4s1 4 4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'};
 const cancerSites=[{name:"Liver",short:"Liver",note:"Rising burden, limited treatment progress",sex:"M"},{name:"Corpus uteri",short:"Corpus Uteri",note:"Quietly worsening, associated with obesity",sex:"F"},{name:"Pancreas",short:"Pancreas",note:"Minimal mortality improvement",sex:"M"},{name:"Brain and central nervous system",short:"Brain / CNS",note:"Mortality stayed stubbornly flat",sex:"M"},{name:"Lung",short:"Lung",note:"Largest decline, smoking reduction",sex:"M"},{name:"Stomach",short:"Stomach",note:"Steady decline across both sexes",sex:"M"},{name:"Breast",short:"Breast",note:"Screening and treatment widened the gap",sex:"F"},{name:"Colorectum",short:"Colorectal",note:"Moderate progress, not a breakthrough",sex:"M"}];
 const heatmapFocus=[["USA",-31.3,[40.3,39.7,39.4,39.1,38.8,37.9,36.8,35.9,34.5,33.2,33.5,32.3,31.3,29.9,28.9,28.4,27.8,29.0,28.0,28.8,27.7]],["Czechia",-28.8,[60.1,57.5,58.3,58.7,59.7,62.7,59.5,59.6,58.7,55.4,55.0,56.1,54.9,55.3,51.7,50.2,49.4,50.8,48.0,46.1,42.8]],["Israel",-27.2,[40.0,42.1,42.9,42.1,43.3,42.2,43.5,42.7,42.4,41.5,43.6,41.5,37.3,35.2,34.2,33.2,34.1,31.8,30.1,28.8,29.1]],["Australia",-21.3,[49.4,48.0,47.9,50.7,49.3,48.2,46.8,47.9,46.8,47.1,48.1,47.3,45.7,47.1,45.3,43.0,41.2,41.7,42.0,40.8,38.9]],["New Zealand",-20.0,[48.6,50.3,51.6,47.4,48.8,48.4,48.0,46.4,44.2,48.2,44.6,43.0,43.7,43.2,44.8,42.3,42.1,44.9,40.9,39.7,38.9]],["Canada",-13.2,[40.2,41.6,42.0,43.2,42.5,41.8,40.4,42.2,42.1,41.1,41.5,42.3,40.8,38.4,39.2,38.2,39.7,39.8,39.1,37.1,34.9]],["Denmark",22.3,[39.1,39.7,38.9,40.0,41.7,40.8,41.1,42.5,42.2,44.2,43.0,42.9,43.6,42.4,41.6,42.3,43.3,50.9,52.5,49.2,47.8]],["Latvia",25.4,[25.6,25.2,26.9,27.5,28.2,27.2,29.6,28.5,30.5,30.6,28.0,26.8,26.2,29.5,33.4,33.1,30.7,32.1,32.0,30.6,32.1]],["Croatia",42.1,[37.3,38.0,47.5,55.6,41.4,45.1,43.3,44.8,45.2,44.4,45.2,50.3,46.7,50.1,44.7,45.4,50.4,53.3,50.6,48.3,53.0]],["Ecuador",42.4,[11.8,8.7,7.3,7.9,11.7,6.2,10.0,11.2,12.8,11.1,12.3,12.3,10.8,14.9,15.0,12.2,14.1,13.3,14.3,15.4,16.8]],["Belarus",55.6,[25.9,25.9,26.4,27.2,27.4,27.2,27.0,29.0,28.6,29.7,30.7,30.6,31.3,33.6,34.5,34.9,35.0,35.6,39.3,38.3,40.3]],["Thailand",95.6,[9.1,9.9,9.3,9.9,10.7,10.4,11.0,9.7,12.4,12.2,13.1,11.8,12.4,12.6,15.9,14.6,15.9,17.0,17.6,18.4,17.8]]];
 
-// ===== FEATURE 8: DARK/LIGHT TOGGLE =====
 if(localStorage.getItem('theme')==='dark')document.body.classList.add('dark');
 const isDark=document.body.classList.contains('dark');
 document.getElementById('themeToggle').textContent=isDark?'☀️':'🌙';
@@ -342,7 +330,6 @@ const sparkContext={"Liver":{type:"annotation",items:[{y:2007,label:"Sorafenib",
 const FONT="'Inter',system-ui,sans-serif";
 const FONT2="'Outfit',system-ui,sans-serif";
 
-// ===== GLOBAL TOOLTIP =====
 const gTip=document.getElementById('gTip');
 function showTip(html,event){
   gTip.innerHTML=html;gTip.classList.add('visible');
@@ -355,12 +342,11 @@ function showTip(html,event){
 }
 function hideTip(){gTip.classList.remove('visible')}
 
-// ===== FEATURE 6: SCROLL-DRIVEN STORYTELLING (staggered reveals) =====
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.08});
 document.querySelectorAll('.section').forEach(s=>obs.observe(s));
 window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressBar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';document.querySelectorAll('.section[id]').forEach(s=>{const r=s.getBoundingClientRect(),a=document.querySelector(`nav a[href="#${s.id}"]`);if(a){if(r.top<300&&r.bottom>200)a.classList.add('active');else a.classList.remove('active')}})});
 
-// ===== FEATURE 3: KPI COUNTERS =====
+// KPI COUNTERS
 (function(){
   const kpis=[
     {label:"Largest CRC Mortality Decline",numVal:-50,suffix:"%",final:"-50%",note:"Australia cut colorectal cancer mortality the most.",accent:C.TEAL},
@@ -403,7 +389,7 @@ window.addEventListener('scroll',()=>{const h=document.documentElement;document.
   });
 })();
 
-// ===== FEATURE 1: VIZ 1 — ANIMATED BAR GROWTH =====
+// VIZ 1 — ANIMATED BAR GROWTH
 let currentMeasure='Incidence';
 function renderViz1(measure){
   const el=document.getElementById('viz1');el.innerHTML='';
@@ -458,6 +444,7 @@ document.getElementById('measureToggle').addEventListener('click',e=>{
   }
 });
 
+// FIX #3: Viz 3 expanded — single narrative title only, centered
 function renderBarDetail(country,measure){
   const body=document.getElementById('sparkModalBody');body.innerHTML='';
   const mMort=barTimeSeries[`${country}|M|Mortality`]||[];
@@ -466,11 +453,14 @@ function renderBarDetail(country,measure){
   const fInc=barTimeSeries[`${country}|F|Incidence`]||[];
   const narrativeTitles={"Paraguay":"Mortality More Than Doubled","Nicaragua":"A Steady Climb in Mortality","Philippines":"Mortality Nearly Doubled","Australia":"A Story of Sustained Decline","Luxembourg":"Sharp Decline Despite Volatility","Czechia":"From Highest to Rapidly Falling","Belarus":"Incidence Rose Steadily","Croatia":"Rising Incidence, Persistent Mortality","Estonia":"Incidence Climbed While Mortality Held","New Zealand":"Consistent Decline on Both Fronts"};
   const title=narrativeTitles[country]||country;
-  body.innerHTML=`<div style="font-family:'Outfit',system-ui,sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.01em;margin-bottom:16px">${country}: ${title}</div><div id="barDetailChart"></div>`;
+  // FIX #3: Only one title — the narrative title, centered in the chart SVG. No separate header div.
+  body.innerHTML=`<div id="barDetailChart"></div>`;
   const overlay=document.getElementById('sparkOverlay');overlay.style.display='flex';overlay.style.opacity='0';requestAnimationFrame(()=>{overlay.style.opacity='1'});
-  drawBarDetailChart(country,measure,mMort,fMort,mInc,fInc);
+  drawBarDetailChart(country,measure,mMort,fMort,mInc,fInc,title);
 }
-function drawBarDetailChart(country,measure,mMort,fMort,mInc,fInc){
+
+// FIX #2: Wider right margin to prevent cutoff. FIX #3: Single centered narrative title.
+function drawBarDetailChart(country,measure,mMort,fMort,mInc,fInc,narrativeTitle){
   const chartEl=document.getElementById('barDetailChart');chartEl.innerHTML='';
   if(!mMort)mMort=barTimeSeries[`${country}|M|Mortality`]||[];
   if(!fMort)fMort=barTimeSeries[`${country}|F|Mortality`]||[];
@@ -478,16 +468,22 @@ function drawBarDetailChart(country,measure,mMort,fMort,mInc,fInc){
   if(!fInc)fInc=barTimeSeries[`${country}|F|Incidence`]||[];
   const allSeries=[...mMort,...fMort,...mInc,...fInc].filter(v=>v!=null);
   if(!allSeries.length){chartEl.innerHTML=`<div style="color:var(--muted);padding:40px;text-align:center">No data available for ${country}.</div>`;return}
-  const W=1060,H=440,m={t:52,r:180,b:74,l:64};
-  const yMax=Math.ceil((d3.max(allSeries)||10)*1.05);
+  const W=1100,H=440,m={t:60,r:220,b:74,l:64};
+  const dataMax=d3.max(allSeries)||10;
+  const yMax=Math.ceil(dataMax);
   const x=d3.scaleLinear().domain([1997,2017]).range([m.l,W-m.r]);
-  const y=d3.scaleLinear().domain([0,yMax]).range([H-m.b,m.t]);
+  const y=d3.scaleLinear().domain([0,yMax]).nice().range([H-m.b,m.t]);
   const svg=d3.select(chartEl).append('svg').attr('width',W).attr('height',H).style('display','block').style('max-width','100%').style('font-family',FONT);
   
-  y.ticks(5).forEach(v=>{svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.GRID);svg.append('text').attr('x',m.l-8).attr('y',y(v)+4).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text(v)});
+  // FIX #3: Single narrative title centered
+  if(narrativeTitle){
+    svg.append('text').attr('x',m.l+(W-m.l-m.r)/2).attr('y',30).attr('text-anchor','middle').attr('fill',C.FG).attr('font-size',17).attr('font-weight',700).attr('font-family',FONT2).text(country+': '+narrativeTitle);
+  }
+  
+  y.ticks(6).forEach(v=>{svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.GRID);svg.append('text').attr('x',m.l-8).attr('y',y(v)+4).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text(v)});
   [...new Set(d3.range(1997,2018,2).concat([2017]))].forEach(yr=>{svg.append('text').attr('x',x(yr)).attr('y',H-m.b+24).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});
   svg.append('text').attr('x',20).attr('y',(m.t+H-m.b)/2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).attr('transform',`rotate(-90,20,${(m.t+H-m.b)/2})`).text('ASR per 100,000');
-  svg.append('text').attr('x',(m.l+W-m.r)/2).attr('y',H-m.b+48).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');
+  svg.append('text').attr('x',m.l+(W-m.l-m.r)/2).attr('y',H-m.b+48).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');
   const line=d3.line().defined(v=>v!=null).x((_,i)=>x(1997+i)).y(d=>y(d)).curve(d3.curveMonotoneX);
   const series=[];
   if(mInc.length)series.push({vals:mInc,color:C.BLUE,width:2.8,dash:null,label:'Male Incidence'});
@@ -517,7 +513,7 @@ function drawBarDetailChart(country,measure,mMort,fMort,mInc,fInc){
     .on('mouseleave',()=>{crossG.style('display','none');hideTip()});
 }
 
-// ===== FEATURES 2,4,5: VIZ 2 — LINE DRAWING + CROSSHAIR + SMOOTH MORPH =====
+// VIZ 2 — FIX #4: Milestone labels moved to top center row
 let currentSex='M';
 const viz2State={W:1280,H:600,m:{t:78,r:240,b:130,l:86}};
 function renderViz2(sex,animate){
@@ -528,31 +524,43 @@ function renderViz2(sex,animate){
   svg.append('rect').attr('width',W).attr('height',H).attr('fill',C.BG);
   const x=d3.scaleLinear().domain([1997,2017]).range([m.l,W-m.r]),y=d3.scaleLinear().domain([0,yMax]).range([H-m.b,m.t]);
   
-  svg.append('text').attr('x',W/2).attr('y',30).attr('text-anchor','middle').attr('fill',C.FG).attr('font-size',17).attr('font-weight',700).attr('font-family',FONT2).text(`Canada vs Australia: Colorectal Cancer Trends (${label})`);
+  svg.append('text').attr('x',m.l+(W-m.l-m.r)/2).attr('y',30).attr('text-anchor','middle').attr('fill',C.FG).attr('font-size',17).attr('font-weight',700).attr('font-family',FONT2).text(`Canada vs Australia: Colorectal Cancer Trends (${label})`);
+  
+  // FIX #4: Milestone labels as a centered row at top instead of on vertical lines
+  const milestones=[{yr:2000,label:'FOLFOX'},{yr:2004,label:'Bevacizumab'},{yr:2006,label:'AUS Screening'},{yr:2007,label:'AB Screening'}];
+  const msLegend=svg.append('g').attr('transform',`translate(${m.l+(W-m.l-m.r)/2},${50})`);
+  const msItems=milestones.map(ms=>`${ms.label} (${ms.yr})`);
+  const totalText=msItems.join('    ');
+  // Draw each milestone item centered
+  let msX=-((milestones.length-1)*140)/2;
+  milestones.forEach((ms,i)=>{
+    msLegend.append('line').attr('x1',msX-8).attr('x2',msX+8).attr('y1',0).attr('y2',0).attr('stroke',C.GOLD).attr('stroke-width',1.5).attr('stroke-dasharray','4,3');
+    msLegend.append('text').attr('x',msX+14).attr('y',4).attr('fill',C.GOLD).attr('font-size',10).attr('font-weight',600).text(`${ms.label} (${ms.yr})`);
+    msX+=150;
+  });
+  
   y.ticks(5).forEach(v=>{svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.GRID);svg.append('text').attr('x',m.l-10).attr('y',y(v)+4).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text(v)});
   d3.range(1997,2018,3).concat([2017]).forEach(yr=>{svg.append('text').attr('x',x(yr)).attr('y',H-m.b+24).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});
   svg.append('text').attr('x',24).attr('y',(m.t+H-m.b)/2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).attr('transform',`rotate(-90,24,${(m.t+H-m.b)/2})`).text('Age-Standardized Rate per 100,000');
   svg.append('text').attr('x',(m.l+(W-m.r))/2).attr('y',H-m.b+38).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');
-  const milestones=[{yr:2000,label:'FOLFOX'},{yr:2004,label:'Bevacizumab'},{yr:2006,label:'AUS Screening'},{yr:2007,label:'AB Screening'}];
+  
+  // Vertical dashed lines only (no labels on lines)
   milestones.forEach(ms=>{
-    svg.append('line').attr('x1',x(ms.yr)).attr('x2',x(ms.yr)).attr('y1',m.t).attr('y2',H-m.b).attr('stroke',C.GOLD).attr('stroke-width',1.1).attr('stroke-dasharray','4,4').attr('opacity',0.7);
-    svg.append('text').attr('x',x(ms.yr)).attr('y',m.t-8).attr('text-anchor','middle').attr('fill',C.GOLD).attr('font-size',9).attr('font-weight',600).text(ms.label);
+    svg.append('line').attr('x1',x(ms.yr)).attr('x2',x(ms.yr)).attr('y1',m.t).attr('y2',H-m.b).attr('stroke',C.GOLD).attr('stroke-width',1.1).attr('stroke-dasharray','4,4').attr('opacity',0.5);
   });
+  
   const line=d3.line().x((_,i)=>x(1997+i)).y(d=>y(d)).curve(d3.curveMonotoneX);
   const series=[{vals:data.AUS_I,color:C.AUS,dash:null,width:3.2,label:'AUS Incidence'},{vals:data.CAN_I,color:C.CAN,dash:null,width:3.2,label:'CAN Incidence'},{vals:data.CAN_M,color:C.CAN,dash:'7,5',width:2.4,label:'CAN Mortality'},{vals:data.AUS_M,color:C.AUS,dash:'7,5',width:2.4,label:'AUS Mortality'}];
   
   series.forEach(s=>{
     const p=svg.append('path').attr('d',line(s.vals)).attr('fill','none').attr('stroke',s.color).attr('stroke-width',s.width);
     if(s.dash)p.attr('stroke-dasharray',s.dash);
-    // FEATURE 2: line drawing animation
-    
     const ev=s.vals[s.vals.length-1];
     const endG=svg.append('g');
     endG.append('circle').attr('cx',x(2017)).attr('cy',y(ev)).attr('r',4).attr('fill',s.color);
     endG.append('text').attr('x',x(2017)+18).attr('y',y(ev)+4).attr('fill',s.color).attr('font-size',12).attr('font-weight',700).text(`${s.label} (${ev.toFixed(1)})`);
-    
   });
-  // FEATURE 4: CROSSHAIR TOOLTIP
+  
   const legend=svg.append('g').attr('transform',`translate(${m.l + (W-m.l-m.r-510)/2},${H-m.b+58})`);
   legend.append('line').attr('x1',0).attr('x2',24).attr('y1',0).attr('y2',0).attr('stroke',C.CAN).attr('stroke-width',3);
   legend.append('text').attr('x',30).attr('y',4).attr('fill',C.SUB).attr('font-size',11).text('Canada');
@@ -562,7 +570,6 @@ function renderViz2(sex,animate){
   legend.append('text').attr('x',255).attr('y',4).attr('fill',C.SUB).attr('font-size',11).text('Solid = Incidence');
   legend.append('line').attr('x1',385).attr('x2',409).attr('y1',0).attr('y2',0).attr('stroke',C.FG).attr('stroke-width',2.5).attr('stroke-dasharray','7,5');
   legend.append('text').attr('x',415).attr('y',4).attr('fill',C.SUB).attr('font-size',11).text('Dashed = Mortality');
-  
 
   const crossG=svg.append('g').style('display','none');
   crossG.append('line').attr('y1',m.t).attr('y2',H-m.b).attr('stroke',C.FG).attr('stroke-width',0.8).attr('stroke-dasharray','3,3').attr('opacity',0.5);
@@ -583,11 +590,8 @@ function renderViz2(sex,animate){
       showTip(html,event);
     })
     .on('mouseleave',()=>{crossG.style('display','none');hideTip()});
-  
 }
-// Initial render with line animation on scroll
 renderViz2('M',false);
-// FEATURE 5: SMOOTH MORPH on sex toggle
 document.getElementById('sexToggle').addEventListener('click',e=>{
   if(e.target.tagName==='BUTTON'){
     currentSex=e.target.dataset.sex;
@@ -597,13 +601,31 @@ document.getElementById('sexToggle').addEventListener('click',e=>{
   }
 });
 
-// VIZ 3 — with organ icons + sex toggle in detail (unchanged from before)
+// VIZ 3 — SPARKLINE CARDS + EXPANDED DETAIL
+// FIX #1: Wider right margin. FIX #5: Y-axis covers data max with .nice()
 (function(){const grid=document.getElementById('sparkGrid');let detailSex='M';
 cancerSites.forEach(site=>{const maleM=sparkData[`${site.name}|M|Mortality`]||[],femM=sparkData[`${site.name}|F|Mortality`]||[],primary=site.sex==='M'?maleM:femM,start=primary[0],end=primary[20],pct=start?((end-start)/start)*100:0,isUp=pct>5,isDown=pct<-5,badgeBg=isUp?C.RUST:isDown?C.TEAL:C.SUB;const cell=document.createElement('div');cell.className='spark-cell';cell.innerHTML=`<div class="spark-header"><div style="display:flex;align-items:center;gap:8px"><div class="spark-name">${site.short}</div></div><div class="spark-badge" style="background:${badgeBg}">${pct>0?'+':''}${pct.toFixed(0)}%</div></div>`;const W=220,H=58,pad=8,svgEl=d3.select(cell).append('svg').attr('viewBox',`0 0 ${W} ${H}`).attr('width','100%').style('display','block'),allV=[...maleM,...femM].filter(v=>v!=null),yMax=d3.max(allV)*1.1||10,xS=d3.scaleLinear().domain([0,20]).range([pad,W-pad]),yS=d3.scaleLinear().domain([0,yMax]).range([H-pad,pad]),lineG=d3.line().defined(v=>v!=null).x((_,i)=>xS(i)).y(d=>yS(d)).curve(d3.curveMonotoneX);if(maleM.length)svgEl.append('path').attr('d',lineG(maleM)).attr('fill','none').attr('stroke',C.BLUE).attr('stroke-width',2.2);if(femM.length)svgEl.append('path').attr('d',lineG(femM)).attr('fill','none').attr('stroke',C.COPPER).attr('stroke-width',1.7).attr('opacity',0.85);const ref=maleM.length?maleM:femM;if(ref.length){svgEl.append('text').attr('x',pad).attr('y',yS(ref[0])-4).attr('font-size',9).attr('fill',C.SUB).text(ref[0]);svgEl.append('text').attr('x',W-pad).attr('y',yS(ref[20])-4).attr('text-anchor','end').attr('font-size',9).attr('fill',C.SUB).text(ref[20])}
     svgEl.append('text').attr('x',pad).attr('y',H-1).attr('font-size',6.5).attr('fill',C.SUB).attr('opacity',0.5).text('1997');
     svgEl.append('text').attr('x',W-pad).attr('y',H-1).attr('text-anchor','end').attr('font-size',6.5).attr('fill',C.SUB).attr('opacity',0.5).text('2017');cell.addEventListener('click',()=>{if(window._sparkCurrent===site.name){document.getElementById('sparkOverlay').style.display='none';grid.querySelectorAll('.spark-cell').forEach(c=>c.classList.remove('active'));window._sparkCurrent=null;return}window._sparkCurrent=site.name;detailSex=site.sex;grid.querySelectorAll('.spark-cell').forEach(c=>c.classList.remove('active'));cell.classList.add('active');renderDetail(site)});grid.appendChild(cell)});
-function renderDetail(site){const body=document.getElementById('sparkModalBody');body.innerHTML='';const ctx=sparkContext[site.name]||{};const hasMale=(sparkData[`${site.name}|M|Mortality`]||[]).length>0;const hasFem=(sparkData[`${site.name}|F|Mortality`]||[]).length>0;let toggleHTML='';if(hasMale&&hasFem){toggleHTML=`<div class="sex-toggle" id="detailSexToggle" style="margin:8px 0 16px"><button class="${detailSex==='M'?'active':''}" data-sex="M">Male</button><button class="${detailSex==='F'?'active':''}" data-sex="F">Female</button></div>`}body.innerHTML=`<div style="font-family:'Outfit',system-ui,sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.01em;margin-bottom:10px">${site.short}: Incidence vs Mortality</div><div style="font-size:14px;line-height:1.55;color:var(--muted);margin-bottom:18px;text-align:justify">${ctx.note||''}</div>${toggleHTML}<div id="detailChart"></div>`;const overlay=document.getElementById('sparkOverlay');overlay.style.display='flex';overlay.style.opacity='0';requestAnimationFrame(()=>{overlay.style.opacity='1'});const tog=document.getElementById('detailSexToggle');if(tog)tog.addEventListener('click',e=>{if(e.target.tagName==='BUTTON'){detailSex=e.target.dataset.sex;tog.querySelectorAll('button').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');drawDetailChart(site,detailSex,ctx)}});drawDetailChart(site,detailSex,ctx)}
-function drawDetailChart(site,sex,ctx){const chartEl=document.getElementById('detailChart');chartEl.innerHTML='';const mort=sparkData[`${site.name}|${sex}|Mortality`]||[];const inc=sparkData[`${site.name}|${sex}|Incidence`]||[];const sexLabel=sex==='F'?'Females':'Males';const lineColor=sex==='F'?C.COPPER:C.BLUE;const W=1060,H=440,m={t:52,r:180,b:74,l:64};const allV=[...mort,...inc].filter(v=>v!=null);const yMax=Math.ceil((d3.max(allV)||10)*1.05);const x=d3.scaleLinear().domain([1997,2017]).range([m.l,W-m.r]);const y=d3.scaleLinear().domain([0,yMax]).range([H-m.b,m.t]);const svg=d3.select(chartEl).append('svg').attr('width',W).attr('height',H).style('display','block').style('max-width','100%').style('font-family',FONT);y.ticks(5).forEach(v=>{svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.GRID);svg.append('text').attr('x',m.l-8).attr('y',y(v)+4).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text(v)});[...new Set(d3.range(1997,2018,2).concat([2017]))].forEach(yr=>{svg.append('text').attr('x',x(yr)).attr('y',H-m.b+24).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});svg.append('text').attr('x',(m.l+W-m.r)/2).attr('y',H-m.b+48).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');svg.append('text').attr('x',20).attr('y',(m.t+H-m.b)/2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).attr('transform',`rotate(-90,20,${(m.t+H-m.b)/2})`).text('ASR per 100,000');const line=d3.line().defined(v=>v!=null).x((_,i)=>x(1997+i)).y(d=>y(d)).curve(d3.curveMonotoneX);if(inc.length){const incPath=svg.append('path').attr('d',line(inc)).attr('fill','none').attr('stroke',lineColor).attr('stroke-width',2.8);
+function renderDetail(site){const body=document.getElementById('sparkModalBody');body.innerHTML='';const ctx=sparkContext[site.name]||{};const hasMale=(sparkData[`${site.name}|M|Mortality`]||[]).length>0;const hasFem=(sparkData[`${site.name}|F|Mortality`]||[]).length>0;let toggleHTML='';if(hasMale&&hasFem){toggleHTML=`<div class="sex-toggle" id="detailSexToggle" style="margin:8px 0 16px"><button class="${detailSex==='M'?'active':''}" data-sex="M">Male</button><button class="${detailSex==='F'?'active':''}" data-sex="F">Female</button></div>`}
+  // FIX: Only show note and toggle, no header title — title goes in the SVG chart
+  body.innerHTML=`<div style="font-size:14px;line-height:1.55;color:var(--muted);margin-bottom:18px;text-align:justify">${ctx.note||''}</div>${toggleHTML}<div id="detailChart"></div>`;
+  const overlay=document.getElementById('sparkOverlay');overlay.style.display='flex';overlay.style.opacity='0';requestAnimationFrame(()=>{overlay.style.opacity='1'});const tog=document.getElementById('detailSexToggle');if(tog)tog.addEventListener('click',e=>{if(e.target.tagName==='BUTTON'){detailSex=e.target.dataset.sex;tog.querySelectorAll('button').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');drawDetailChart(site,detailSex,ctx)}});drawDetailChart(site,detailSex,ctx)}
+
+// FIX #1: W=1100, m.r=220 to prevent right cutoff
+// FIX #5: yMax uses Math.ceil(dataMax) + .nice() for proper axis coverage
+function drawDetailChart(site,sex,ctx){const chartEl=document.getElementById('detailChart');chartEl.innerHTML='';const mort=sparkData[`${site.name}|${sex}|Mortality`]||[];const inc=sparkData[`${site.name}|${sex}|Incidence`]||[];const sexLabel=sex==='F'?'Females':'Males';const lineColor=sex==='F'?C.COPPER:C.BLUE;const W=1100,H=440,m={t:60,r:220,b:74,l:64};const allV=[...mort,...inc].filter(v=>v!=null);
+  // FIX #5: y-axis goes to at least the max data value, rounded up nicely
+  const dataMax=d3.max(allV)||10;
+  const yMaxRaw=Math.ceil(dataMax);
+  const x=d3.scaleLinear().domain([1997,2017]).range([m.l,W-m.r]);
+  const y=d3.scaleLinear().domain([0,yMaxRaw]).nice().range([H-m.b,m.t]);
+  const svg=d3.select(chartEl).append('svg').attr('width',W).attr('height',H).style('display','block').style('max-width','100%').style('font-family',FONT);
+  
+  // Title centered in SVG (single title for the expanded view)
+  svg.append('text').attr('x',m.l+(W-m.l-m.r)/2).attr('y',28).attr('text-anchor','middle').attr('fill',C.FG).attr('font-size',17).attr('font-weight',700).attr('font-family',FONT2).text(`${site.short}: Incidence vs Mortality (${sexLabel})`);
+  
+  y.ticks(6).forEach(v=>{svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.GRID);svg.append('text').attr('x',m.l-8).attr('y',y(v)+4).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text(v)});[...new Set(d3.range(1997,2018,2).concat([2017]))].forEach(yr=>{svg.append('text').attr('x',x(yr)).attr('y',H-m.b+24).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});svg.append('text').attr('x',m.l+(W-m.l-m.r)/2).attr('y',H-m.b+48).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');svg.append('text').attr('x',20).attr('y',(m.t+H-m.b)/2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).attr('transform',`rotate(-90,20,${(m.t+H-m.b)/2})`).text('ASR per 100,000');const line=d3.line().defined(v=>v!=null).x((_,i)=>x(1997+i)).y(d=>y(d)).curve(d3.curveMonotoneX);if(inc.length){const incPath=svg.append('path').attr('d',line(inc)).attr('fill','none').attr('stroke',lineColor).attr('stroke-width',2.8);
     svg.append('text').attr('x',W-m.r+10).attr('y',y(inc[20])+4).attr('fill',lineColor).attr('font-size',11).attr('font-weight',700).text(`Incidence: ${inc[20]}`)}if(mort.length){const mortPath=svg.append('path').attr('d',line(mort)).attr('fill','none').attr('stroke',lineColor).attr('stroke-width',2).attr('stroke-dasharray','6,4').attr('opacity',0.8);
     svg.append('text').attr('x',W-m.r+10).attr('y',y(mort[20])+4).attr('fill',lineColor).attr('font-size',11).attr('font-weight',600).attr('opacity',0.8).text(`Mortality: ${mort[20]}`)}if(ctx.type==='annotation'&&ctx.items){ctx.items.forEach(a=>{if(a.y>=1997&&a.y<=2017){svg.append('line').attr('x1',x(a.y)).attr('x2',x(a.y)).attr('y1',m.t).attr('y2',H-m.b).attr('stroke',a.c||C.GOLD).attr('stroke-width',1).attr('stroke-dasharray','4,4').attr('opacity',0.75);svg.append('text').attr('x',x(a.y)+4).attr('y',m.t+12).attr('fill',a.c||C.GOLD).attr('font-size',10).attr('font-weight',700).text(a.label)}})}if(ctx.type==='overlay'&&ctx.data){const oD=ctx.data,oMax=d3.max(oD.filter(v=>v!=null))||10,oy=d3.scaleLinear().domain([0,oMax*1.15]).range([H-m.b,m.t]);oD.forEach((v,i)=>{if(v!=null)svg.append('circle').attr('cx',x(1997+i)).attr('cy',oy(v)).attr('r',3).attr('fill',ctx.color||C.GOLD).attr('opacity',0.6)});svg.append('text').attr('x',W-m.r+10).attr('y',H-m.b-10).attr('fill',ctx.color||C.FG).attr('font-size',9).attr('font-weight',600).text(ctx.label||'')}const crossG2=svg.append('g').style('display','none');
     crossG2.append('line').attr('y1',m.t).attr('y2',H-m.b).attr('stroke',C.FG).attr('stroke-width',0.8).attr('stroke-dasharray','3,3').attr('opacity',0.5);
@@ -615,7 +637,7 @@ function drawDetailChart(site,sex,ctx){const chartEl=document.getElementById('de
         if(yr<1997||yr>2017){crossG2.style('display','none');hideTip();return}
         const idx=yr-1997;crossG2.style('display',null);
         crossG2.select('line').attr('x1',x(yr)).attr('x2',x(yr));
-        let html=`<strong>${site.short} — ${yr}</strong>`;
+        let html=`<strong>${site.short} \u2014 ${yr}</strong>`;
         if(inc.length&&inc[idx]!=null){cDotInc.attr('cx',x(yr)).attr('cy',y(inc[idx]));html+=`<br>Incidence: ${inc[idx].toFixed(1)}`}
         if(mort.length&&mort[idx]!=null){cDotMort.attr('cx',x(yr)).attr('cy',y(mort[idx]));html+=`<br>Mortality: ${mort[idx].toFixed(1)}`}
         if(ctx.type==='overlay'&&ctx.data&&ctx.data[idx]!=null){html+=`<br><span style="color:${C.SUB}">${ctx.label}: ${ctx.data[idx]}%</span>`}
@@ -623,15 +645,11 @@ function drawDetailChart(site,sex,ctx){const chartEl=document.getElementById('de
       })
       .on('mouseleave',()=>{crossG2.style('display','none');hideTip()})}})();
 
-// VIZ 4
+// VIZ 4 — HEATMAP (unchanged)
 (function(){const W=1320,cellW=40,cellH=34,topPad=120,bottomPad=80,leftLabelW=136,changeW=66,gridX=leftLabelW+changeW+30,H=topPad+heatmapFocus.length*cellH+bottomPad,TEAL=C.TEAL,RUST=C.RUST,MID=C.MID;const svg=d3.select('#viz4').append('svg').attr('width',W).attr('height',H).style('background',C.BG).style('font-family',FONT);svg.append('rect').attr('width',W).attr('height',H).attr('fill',C.BG);svg.append('text').attr('x',gridX+(21*cellW)/2).attr('y',30).attr('text-anchor','middle').attr('fill',C.FG).attr('font-size',17).attr('font-weight',700).attr('font-family',FONT2).text('Colorectal Cancer Incidence Trajectories Across 12 Countries');
   svg.append('text').attr('x',gridX+(21*cellW)/2).attr('y',50).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Each country is compared to where it started in 1997');
   svg.append('text').attr('x',leftLabelW).attr('y',topPad-14).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',12).text('Country');svg.append('text').attr('x',leftLabelW+changeW).attr('y',topPad-14).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',12).text('% Change');[1997,2002,2007,2012,2017].forEach(yr=>{svg.append('text').attr('x',gridX+(yr-1997)*cellW+cellW/2).attr('y',topPad-14).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});const colorScale=d3.scaleDiverging().domain([-60,0,100]).interpolator(t=>t<0.5?d3.interpolateRgb(TEAL,MID)(t*2):d3.interpolateRgb(MID,RUST)((t-0.5)*2));heatmapFocus.forEach((d,i)=>{const pct=d[1],vals=d[2],yp=topPad+i*cellH,base=vals[0];svg.append('text').attr('x',leftLabelW).attr('y',yp+cellH/2+4).attr('text-anchor','end').attr('fill',C.FG).attr('font-size',12.5).attr('data-country',d[0]).attr('class','hl-country').text(d[0]);svg.append('text').attr('x',leftLabelW+changeW).attr('y',yp+cellH/2+4).attr('text-anchor','end').attr('fill',pct<0?TEAL:RUST).attr('font-size',11.5).attr('font-weight',700).text(`${pct>0?'+':''}${Math.round(pct)}%`);vals.forEach((v,j)=>{const chg=((v-base)/base)*100;svg.append('rect').attr('x',gridX+j*cellW).attr('y',yp+1).attr('width',cellW-1.5).attr('height',cellH-2).attr('rx',3).attr('fill',colorScale(chg)).attr('data-country',d[0]).attr('class','hl-country').style('cursor','pointer').on('mousemove',function(event){showTip(`<strong>${d[0]}</strong> · ${1997+j}<br>Incidence: ${v.toFixed(1)} per 100k<br>vs 1997: <span style="color:${chg<0?TEAL:RUST}">${chg>0?'+':''}${chg.toFixed(0)}%</span>`,event)}).on('mouseleave',hideTip)})});const divI=heatmapFocus.findIndex(d=>d[1]>0);if(divI>0)svg.append('line').attr('x1',leftLabelW+8).attr('x2',gridX+21*cellW).attr('y1',topPad+divI*cellH).attr('y2',topPad+divI*cellH).attr('stroke',C.DIV).attr('stroke-width',1.4).attr('stroke-dasharray','4,4');const legW=400,legH=12,legX=gridX+(21*cellW-legW)/2,legY=H-16,grad=svg.append('defs').append('linearGradient').attr('id','heatLeg');grad.append('stop').attr('offset','0%').attr('stop-color',TEAL);grad.append('stop').attr('offset','50%').attr('stop-color',MID);grad.append('stop').attr('offset','100%').attr('stop-color',RUST);svg.append('rect').attr('x',legX).attr('y',legY).attr('width',legW).attr('height',legH).attr('rx',4).attr('fill','url(#heatLeg)');
   svg.append('text').attr('x',legX-4).attr('y',legY+8).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text('Lower Incidence');svg.append('text').attr('x',legX+legW+4).attr('y',legY+8).attr('fill',C.SUB).attr('font-size',11).text('Higher Incidence')})();
-
-
-
-
 
 // VIZ 7: VERTICAL GROUPED BAR CHART
 (function(){
@@ -688,7 +706,7 @@ function drawDetailChart(site,sex,ctx){const chartEl=document.getElementById('de
   });
 })();
 
-// ===== FEATURE 7: LINKED HIGHLIGHTING =====
+// LINKED HIGHLIGHTING
 (function(){
   const allHL=document.querySelectorAll('.hl-country');
   function highlight(country){
@@ -708,24 +726,7 @@ function drawDetailChart(site,sex,ctx){const chartEl=document.getElementById('de
   });
 })();
 
-// ===== FEATURE 9: HEATMAP CASCADE =====
-
-
-
-
-// ===== FEATURE 11: VIZ 7 BAR GROWTH =====
-
-
-// ===== FEATURE 13: SPARKLINE CARD STAGGER =====
-
-
-// ===== FEATURE 14: HEATMAP % NUMBER ANIMATION =====
-
-
-// ===== FEATURE 15: VIZ 3 SPARKLINE PATH DRAWING =====
-
-
-// ===== FEATURE 19: SCROLL-TO-TOP BUTTON =====
+// KEY TERMS + SCROLL-TO-TOP
 document.getElementById('keyTermsBtn').addEventListener('click',()=>{const o=document.getElementById('keyTermsOverlay');o.style.display='flex';o.style.opacity='0';requestAnimationFrame(()=>{o.style.opacity='1'})});
 
 (function(){
@@ -737,10 +738,6 @@ document.getElementById('keyTermsBtn').addEventListener('click',()=>{const o=doc
     window.scrollTo({top:0,behavior:'smooth'});
   });
 })();
-
-// ===== FEATURE 20: CROSSHAIR DOT HALOS =====
-
-
 </script>
 </body>
 </html>
