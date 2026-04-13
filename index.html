@@ -226,14 +226,14 @@ document.getElementById('themeToggle').addEventListener('click',()=>{document.bo
 // COLOR SYSTEM — new encoding
 const C=isDark?{
   BG:"#1A1B1E",FG:"#D6D2CC",SUB:"#8A857E",GRID:"#282A2E",AXIS:"#3C3E43",GRIDL:"#282A2E",DIV:"#333538",MID:"#2A2622",
-  MALE:"#5BBCC9",FEMALE:"#D4B5B6",
+  MALE:"#B0A0C0",FEMALE:"#CC9B7A",
   IMPROVE:"#6BB8C0",WORSEN:"#C0808E",
   IMPROVE_S:"rgba(107,184,192,0.14)",WORSEN_S:"rgba(192,128,142,0.14)",
-  CAN:"#5B9EA6",AUS:"#CC9B7A",
+  CAN:"#B0A0C0",AUS:"#CC9B7A",
   GOLD:"#D4A06A",COPPER:"#CC9B7A"
 }:{
   BG:"#FAF8F4",FG:"#2F2A26",SUB:"#7A746C",GRID:"#DDD6CC",AXIS:"#CFC7BB",GRIDL:"#E6DED3",DIV:"#D8CFC3",MID:"#F3E8DA",
-  MALE:"#005366",FEMALE:"#AF9293",
+  MALE:"#6B5B7B",FEMALE:"#C08B4A",
   IMPROVE:"#274E55",WORSEN:"#532E3B",
   IMPROVE_S:"rgba(39,78,85,0.12)",WORSEN_S:"rgba(83,46,59,0.12)",
   CAN:"#6B5B7B",AUS:"#C08B4A",
@@ -323,8 +323,9 @@ function drawBarDetailChart(country,measure,sex){
   const chartEl=document.getElementById('barDetailChart');chartEl.innerHTML='';
   const vals=barTimeSeries[`${country}|${sex}|${measure}`]||[];
   if(!vals.length){chartEl.innerHTML=`<div style="color:var(--muted);padding:40px;text-align:center">No ${measure.toLowerCase()} data available for ${country}.</div>`;return}
-  const W=1100,H=440,m={t:36,r:190,b:74,l:64};
-  const yMax=Math.ceil(d3.max(vals)/5)*5;
+  const W=1100,H=440,m={t:36,r:220,b:74,l:64};
+  const dataMax=d3.max(vals)||10;
+  const yMax=dataMax>=10?Math.ceil((dataMax+0.01)/5)*5:Math.ceil(dataMax+0.01);
   const x=d3.scaleLinear().domain([1997,2017]).range([m.l,W-m.r]),y=d3.scaleLinear().domain([0,yMax]).range([H-m.b,m.t]);
   const svg=d3.select(chartEl).append('svg').attr('width',W).attr('height',H).style('display','block').style('max-width','100%').style('font-family',FONT);
   const color=sex==='M'?C.MALE:C.FEMALE;const labelPfx=sex==='M'?'Male':'Female';
@@ -334,7 +335,7 @@ function drawBarDetailChart(country,measure,sex){
   svg.append('text').attr('x',m.l+(W-m.l-m.r)/2).attr('y',H-m.b+48).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');
   const line=d3.line().defined(v=>v!=null).x((_,i)=>x(1997+i)).y(d=>y(d)).curve(d3.curveMonotoneX);
   svg.append('path').attr('d',line(vals)).attr('fill','none').attr('stroke',color).attr('stroke-width',2.8);
-  svg.append('text').attr('x',W-m.r+12).attr('y',y(vals[20])+4).attr('fill',color).attr('font-size',12).attr('font-weight',700).text(`${labelPfx} ${measure}: ${vals[20].toFixed(1)}`);
+  svg.append('text').attr('x',W-m.r+10).attr('y',y(vals[20])+4).attr('fill',color).attr('font-size',12).attr('font-weight',700).text(`${labelPfx} ${measure}: ${vals[20].toFixed(1)}`);
   const crossG=svg.append('g').style('display','none');crossG.append('line').attr('y1',m.t).attr('y2',H-m.b).attr('stroke',C.FG).attr('stroke-width',0.8).attr('stroke-dasharray','3,3').attr('opacity',0.5);const dot=crossG.append('circle').attr('r',4).attr('fill',color).attr('stroke','#fff').attr('stroke-width',1.5);
   svg.append('rect').attr('x',m.l).attr('y',m.t).attr('width',W-m.l-m.r).attr('height',H-m.t-m.b).attr('fill','transparent').attr('cursor','crosshair').on('mousemove',function(event){const[mx]=d3.pointer(event),yr=Math.round(x.invert(mx));if(yr<1997||yr>2017){crossG.style('display','none');hideTip();return}const idx=yr-1997,v=vals[idx];crossG.style('display',null);crossG.select('line').attr('x1',x(yr)).attr('x2',x(yr));dot.attr('cx',x(yr)).attr('cy',y(v));showTip(`<strong>${country} \u00b7 ${yr}</strong><br>${labelPfx} ${measure}: ${v.toFixed(1)}`,event)}).on('mouseleave',()=>{crossG.style('display','none');hideTip()});
 }
@@ -353,9 +354,9 @@ function renderViz2(sex){
   d3.range(1997,2018,3).concat([2017]).forEach(yr=>{svg.append('text').attr('x',x(yr)).attr('y',H-m.b+24).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});
   svg.append('text').attr('x',24).attr('y',(m.t+H-m.b)/2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).attr('transform',`rotate(-90,24,${(m.t+H-m.b)/2})`).text('Age-Standardized Rate per 100,000');
   svg.append('text').attr('x',m.l+(W-m.l-m.r)/2).attr('y',H-m.b+48).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');
-  // Milestones: vertical lines with labels on top
-  const milestones=[{yr:2000,label:'FOLFOX'},{yr:2004,label:'Bevacizumab'},{yr:2006,label:'AUS Screening'},{yr:2007,label:'AB Screening'}];
-  milestones.forEach(ms=>{svg.append('line').attr('x1',x(ms.yr)).attr('x2',x(ms.yr)).attr('y1',m.t).attr('y2',H-m.b).attr('stroke',C.GOLD).attr('stroke-width',1.1).attr('stroke-dasharray','4,4').attr('opacity',0.6);svg.append('text').attr('x',x(ms.yr)).attr('y',m.t-8).attr('text-anchor','middle').attr('fill',C.GOLD).attr('font-size',9).attr('font-weight',600).text(ms.label)});
+  // Milestones: vertical lines with staggered labels to avoid overlap
+  const milestones=[{yr:2000,label:'FOLFOX',dy:0},{yr:2004,label:'Bevacizumab',dy:0},{yr:2006,label:'AUS Screening',dy:0},{yr:2007,label:'AB Screening',dy:-14}];
+  milestones.forEach(ms=>{svg.append('line').attr('x1',x(ms.yr)).attr('x2',x(ms.yr)).attr('y1',m.t).attr('y2',H-m.b).attr('stroke',C.GOLD).attr('stroke-width',1.1).attr('stroke-dasharray','4,4').attr('opacity',0.6);svg.append('text').attr('x',x(ms.yr)).attr('y',m.t-8+ms.dy).attr('text-anchor','middle').attr('fill',C.GOLD).attr('font-size',9).attr('font-weight',600).text(ms.label)});
   const line=d3.line().x((_,i)=>x(1997+i)).y(d=>y(d)).curve(d3.curveMonotoneX);
   const series=[{vals:data.AUS_I,color:C.AUS,dash:null,width:3.2,label:'AUS Incidence'},{vals:data.CAN_I,color:C.CAN,dash:null,width:3.2,label:'CAN Incidence'},{vals:data.CAN_M,color:C.CAN,dash:'7,5',width:2.4,label:'CAN Mortality'},{vals:data.AUS_M,color:C.AUS,dash:'7,5',width:2.4,label:'AUS Mortality'}];
   series.forEach(s=>{const p=svg.append('path').attr('d',line(s.vals)).attr('fill','none').attr('stroke',s.color).attr('stroke-width',s.width);if(s.dash)p.attr('stroke-dasharray',s.dash);const ev=s.vals[20];svg.append('circle').attr('cx',x(2017)).attr('cy',y(ev)).attr('r',4).attr('fill',s.color);svg.append('text').attr('x',x(2017)+18).attr('y',y(ev)+4).attr('fill',s.color).attr('font-size',12).attr('font-weight',700).text(`${s.label} (${ev.toFixed(1)})`)});
@@ -411,7 +412,7 @@ document.getElementById('sexToggle').addEventListener('click',e=>{if(e.target.ta
     const W=1100,H=440,m={t:30,r:220,b:74,l:64};
     const allV=[...mort,...inc].filter(v=>v!=null);
     const dataMax=d3.max(allV)||10;
-    const yMax=Math.ceil(dataMax/5)*5;
+    const yMax=dataMax>=10?Math.ceil((dataMax+0.01)/5)*5:Math.ceil(dataMax+0.01);
     const x=d3.scaleLinear().domain([1997,2017]).range([m.l,W-m.r]);
     const y=d3.scaleLinear().domain([0,yMax]).range([H-m.b,m.t]);
     const svg=d3.select(chartEl).append('svg').attr('width',W).attr('height',H).style('display','block').style('max-width','100%').style('font-family',FONT);
