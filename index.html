@@ -133,20 +133,20 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
 <div id="sparklines" class="section">
   <div class="section-eyebrow">01 · Canadian Landscape</div>
   <div class="section-title">Where Progress Stalled</div>
-  <p class="section-subtitle">Not all cancers responded the same way over the past two decades. In Canada, some saw sharp declines in mortality while others barely moved or worsened. The cards below show where progress was made and where it was not.</p>
+  <p class="section-subtitle">Across major cancer sites in Canada, incidence and mortality followed different paths between 1997 and 2017. In some cases, mortality declined while incidence remained stable or increased, while in others both measures changed in similar directions. Differences between males and females add another layer of variation to these patterns.</p>
   <div class="spark-legend" id="sparkLegend"></div>
   <div class="spark-hint">Click any card to expand the full Incidence vs Mortality chart with contextual annotations.</div>
   <div class="spark-grid" id="sparkGrid"></div>
 </div>
-<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Cancer progress in Canada was highly uneven.</strong> Lung and stomach cancer mortality declined clearly, but cancers such as pancreas, brain/CNS, liver, and corpus uteri showed much less progress or even worsening trends.</div></div></div>
+<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>The overall pattern is uneven rather than uniformly improving.</strong> Declines in cancers such as lung and stomach contrast with limited change or worsening trends in liver and pancreas.</div></div></div>
 <div class="section-divider"></div>
 <div id="sexgap" class="section">
   <div class="section-eyebrow">02 · Sex Disparities</div>
   <div class="section-title">Men and Women Responded Differently</div>
-  <p class="section-subtitle">Even within the same cancer, outcomes often differed by sex. This section compares how mortality changed for men and women across six cancer sites from 1997 to 2017.</p>
+  <p class="section-subtitle">Changes in cancer mortality over time differ not only by cancer type but also by sex. Some cancers show similar trajectories for males and females, while others separate more clearly over time.</p>
   <div class="chart-wrap" id="viz10"></div>
 </div>
-<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Improvement was not always shared equally between men and women.</strong> For some cancers, especially lung and liver, mortality changed at very different rates by sex, while for others the gap was much smaller.</div></div></div>
+<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Improvement is not evenly distributed.</strong> In cancers such as lung and liver, the gap between males and females is substantial, while in others it remains relatively small.</div></div></div>
 <div class="section-divider"></div>
 <div class="section visible" style="padding:3rem 2rem">
   <div class="ctx-card" style="max-width:860px;margin:0 auto;text-align:center;padding:36px 44px">
@@ -157,29 +157,29 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
 <div id="mortality" class="section">
   <div class="section-eyebrow">03 · Global Comparison</div>
   <div class="section-title">Who Improved and Who Worsened</div>
-  <p class="section-subtitle">Colorectal cancer outcomes varied enormously across countries. Some saw incidence or mortality fall sharply while others moved in the opposite direction. Use the toggle to compare the three largest declines with the three largest increases.</p>
+  <p class="section-subtitle">Colorectal cancer outcomes between 1997 and 2017 vary widely across countries, with both incidence and mortality showing large changes in different directions. The comparison highlights where outcomes improved the most and where they worsened across both measures.</p>
   <div class="sex-toggle" id="measureToggle"><button class="active" data-measure="Incidence">Incidence</button><button data-measure="Mortality">Mortality</button></div>
   <div class="spark-hint">Click any bar to explore the full trend over time.</div>
   <div class="chart-wrap" id="viz1"></div>
 </div>
-<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Australia and Czechia cut colorectal cancer mortality by roughly half, while the Philippines and Paraguay saw it nearly double.</strong> The gap between the best and worst performing countries widened considerably from 1997 to 2017, and similar divergence appeared in incidence data.</div></div></div>
+<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Incidence and mortality do not always move together.</strong> Some countries improve on both, while others diverge, reinforcing that no consistent global pattern emerges.</div></div></div>
 <div class="section-divider"></div>
 <div id="heatmap" class="section">
   <div class="section-eyebrow">04 · Global Incidence</div>
   <div class="section-title">Diverging Trajectories</div>
-  <p class="section-subtitle">Year by year, these 12 countries reveal how differently colorectal cancer incidence evolved. Color encodes each country's change relative to its own 1997 baseline, making it possible to compare trajectories even when starting rates differed widely.</p>
+  <p class="section-subtitle">When colorectal cancer incidence is measured relative to each country's 1997 baseline, long-term trajectories become easier to compare despite different starting levels. Over time, these trajectories separate into distinct patterns across countries.</p>
   <div class="chart-wrap" id="viz4" style="overflow-x:hidden"></div>
 </div>
-<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>The USA and Czechia reduced male colorectal cancer incidence by more than 28% from their 1997 baselines, while Thailand nearly doubled and Belarus rose over 55%.</strong> The divergence between improving and worsening countries accelerated after 2007, with no sign of convergence by 2017.</div></div></div>
+<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Divergence becomes more pronounced after the mid-2000s.</strong> Some countries continue to decline, while others increase, widening the gap between outcomes.</div></div></div>
 <div class="section-divider"></div>
 <div id="compare" class="section">
   <div class="section-eyebrow">05 · Head to Head</div>
   <div class="section-title">The Screening Divide</div>
-  <p class="section-subtitle">Canada and Australia offer the clearest natural comparison in the dataset. Both started from similar colorectal cancer burdens, but their paths diverged. Key milestones include FOLFOX (2000) and bevacizumab (2004), which improved chemotherapy outcomes for both countries, and organized screening programs, which Australia introduced nationally in 2006 while Alberta became the first Canadian province to follow in 2007.</p>
+  <p class="section-subtitle">Canada and Australia began with similar colorectal cancer incidence and mortality levels, but their trajectories separate over time. The vertical markers indicate key milestones, including the introduction of treatments such as FOLFOX and bevacizumab, as well as the rollout of organized screening programs in Australia and Alberta, which provide context for how these trends evolved.</p>
   <div class="sex-toggle" id="sexToggle"><button class="active" data-sex="M">Male</button><button data-sex="F">Female</button></div>
   <div class="chart-wrap" id="viz2" style="overflow-x:hidden"></div>
 </div>
-<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>Canada and Australia did not stay on the same path.</strong> After Australia introduced organized screening earlier, its colorectal cancer mortality fell further, suggesting that screening timing may have mattered alongside treatment advances.</div></div></div>
+<div class="context-strip"><div class="ctx-card"><div class="ctx-text"><strong>The separation is most visible in mortality.</strong> Australia shows a sharper decline, while Canada's reduction is more gradual, with the timing of screening aligning with these differences.</div></div></div>
 <div class="section-divider"></div>
 <div class="section visible">
   <div class="takeaway-card">
