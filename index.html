@@ -175,7 +175,7 @@ body.dark #keyTermsBtn{background:rgba(255,255,255,0.05);border-color:rgba(255,2
 <div id="compare" class="section">
   <div class="section-eyebrow">05 · Head to Head</div>
   <div class="section-title">The Screening Divide</div>
-  <p class="section-subtitle">Canada and Australia began with similar colorectal cancer incidence and mortality levels, but their trajectories separate over time. The vertical markers indicate key milestones, including the introduction of treatments such as FOLFOX and bevacizumab, as well as the rollout of organized screening programs in Australia and Alberta, which provide context for how these trends evolved.</p>
+  <p class="section-subtitle">Canada and Australia began with similar colorectal cancer incidence and mortality levels, but their trajectories separate over time. The vertical markers indicate key milestones, including the introduction of treatments such as FOLFOX and Bevacizumab, as well as the rollout of organized screening programs in Australia and Alberta, which provide context for how these trends evolved.</p>
   <div class="sex-toggle" id="sexToggle"><button class="active" data-sex="M">Male</button><button data-sex="F">Female</button></div>
   <div class="chart-wrap" id="viz2" style="overflow-x:hidden"></div>
 </div>
@@ -314,7 +314,7 @@ function renderBarDetail(country,measure){
   const body=document.getElementById('sparkModalBody');body.innerHTML='';
   const narrativeTitles={"Paraguay":"Mortality More Than Doubled","Nicaragua":"A Steady Climb in Mortality","Philippines":"Mortality Nearly Doubled","Australia":"A Story of Sustained Decline","Luxembourg":"Sharp Decline Despite Volatility","Czechia":"From Highest to Rapidly Falling","Belarus":"Incidence Rose Steadily","Croatia":"Rising Incidence, Persistent Mortality","Estonia":"Incidence Climbed While Mortality Held","New Zealand":"Consistent Decline on Both Fronts"};
   currentBarDetailSex='M';
-  body.innerHTML=`<div class="expand-title">${country}: ${narrativeTitles[country]||country}</div><div class="sex-toggle" id="barDetailSexToggle" style="margin:0 0 16px 0"><button class="active" data-sex="M">Male</button><button data-sex="F">Female</button></div><div id="barDetailChart"></div>`;
+  body.innerHTML=`<div class="expand-title">${country} \u2013 ${narrativeTitles[country]||country}</div><div class="sex-toggle" id="barDetailSexToggle" style="margin:0 0 16px 0"><button class="active" data-sex="M">Male</button><button data-sex="F">Female</button></div><div id="barDetailChart"></div>`;
   document.getElementById('sparkOverlay').style.display='flex';document.getElementById('sparkOverlay').style.opacity='0';requestAnimationFrame(()=>{document.getElementById('sparkOverlay').style.opacity='1'});
   document.getElementById('barDetailSexToggle').addEventListener('click',ev=>{if(ev.target.tagName==='BUTTON'){currentBarDetailSex=ev.target.dataset.sex;document.querySelectorAll('#barDetailSexToggle button').forEach(b=>b.classList.remove('active'));ev.target.classList.add('active');drawBarDetailChart(country,measure,currentBarDetailSex)}});
   drawBarDetailChart(country,measure,currentBarDetailSex);
@@ -325,11 +325,13 @@ function drawBarDetailChart(country,measure,sex){
   if(!vals.length){chartEl.innerHTML=`<div style="color:var(--muted);padding:40px;text-align:center">No ${measure.toLowerCase()} data available for ${country}.</div>`;return}
   const W=1100,H=440,m={t:36,r:220,b:74,l:64};
   const dataMax=d3.max(vals)||10;
-  const yMax=dataMax>=10?Math.ceil((dataMax+0.01)/5)*5:Math.ceil(dataMax+0.01);
+  const yMax=Math.ceil((dataMax+0.01)/5)*5;
   const x=d3.scaleLinear().domain([1997,2017]).range([m.l,W-m.r]),y=d3.scaleLinear().domain([0,yMax]).range([H-m.b,m.t]);
   const svg=d3.select(chartEl).append('svg').attr('width',W).attr('height',H).style('display','block').style('max-width','100%').style('font-family',FONT);
   const color=sex==='M'?C.MALE:C.FEMALE;const labelPfx=sex==='M'?'Male':'Female';
-  y.ticks(5).forEach(v=>{svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.GRID);svg.append('text').attr('x',m.l-8).attr('y',y(v)+4).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text(v)});
+  const tickStep=yMax<=10?2:yMax<=30?5:10;
+  const yTicks=d3.range(0,yMax+1,tickStep);if(yTicks[yTicks.length-1]!==yMax)yTicks.push(yMax);
+  yTicks.forEach(v=>{svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.GRID);svg.append('text').attr('x',m.l-8).attr('y',y(v)+4).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text(v)});
   [...new Set(d3.range(1997,2018,2).concat([2017]))].forEach(yr=>{svg.append('text').attr('x',x(yr)).attr('y',H-m.b+24).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});
   svg.append('text').attr('x',20).attr('y',(m.t+H-m.b)/2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).attr('transform',`rotate(-90,20,${(m.t+H-m.b)/2})`).text('ASR per 100,000');
   svg.append('text').attr('x',m.l+(W-m.l-m.r)/2).attr('y',H-m.b+48).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');
@@ -412,11 +414,13 @@ document.getElementById('sexToggle').addEventListener('click',e=>{if(e.target.ta
     const W=1100,H=440,m={t:30,r:220,b:74,l:64};
     const allV=[...mort,...inc].filter(v=>v!=null);
     const dataMax=d3.max(allV)||10;
-    const yMax=dataMax>=10?Math.ceil((dataMax+0.01)/5)*5:Math.ceil(dataMax+0.01);
+    const yMax=Math.ceil((dataMax+0.01)/5)*5;
     const x=d3.scaleLinear().domain([1997,2017]).range([m.l,W-m.r]);
     const y=d3.scaleLinear().domain([0,yMax]).range([H-m.b,m.t]);
     const svg=d3.select(chartEl).append('svg').attr('width',W).attr('height',H).style('display','block').style('max-width','100%').style('font-family',FONT);
-    y.ticks(5).forEach(v=>{svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.GRID);svg.append('text').attr('x',m.l-8).attr('y',y(v)+4).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text(v)});
+    const tickStep=yMax<=10?2:yMax<=30?5:10;
+    const yTicks=d3.range(0,yMax+1,tickStep);if(yTicks[yTicks.length-1]!==yMax)yTicks.push(yMax);
+    yTicks.forEach(v=>{svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).attr('stroke',C.GRID);svg.append('text').attr('x',m.l-8).attr('y',y(v)+4).attr('text-anchor','end').attr('fill',C.SUB).attr('font-size',11).text(v)});
     [...new Set(d3.range(1997,2018,2).concat([2017]))].forEach(yr=>{svg.append('text').attr('x',x(yr)).attr('y',H-m.b+24).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',11).text(yr)});
     svg.append('text').attr('x',m.l+(W-m.l-m.r)/2).attr('y',H-m.b+48).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).text('Year');
     svg.append('text').attr('x',20).attr('y',(m.t+H-m.b)/2).attr('text-anchor','middle').attr('fill',C.SUB).attr('font-size',12).attr('transform',`rotate(-90,20,${(m.t+H-m.b)/2})`).text('ASR per 100,000');
